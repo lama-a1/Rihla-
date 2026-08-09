@@ -67,6 +67,7 @@ export interface RecommendedPlace {
   crowdLevel?: "low" | "medium" | "high";
   walkingLevel?: "low" | "moderate" | "high";
   indoorOutdoor?: "indoor" | "outdoor" | "mixed";
+  accessibilityInfo?: string;
   mapQuery: string;
   source: "places" | "mock";
 }
