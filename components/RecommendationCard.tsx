@@ -59,13 +59,23 @@ export function RecommendationCard({
       </div>
       <p className="text-xs text-ink-muted leading-relaxed mb-3">{place.reason}</p>
 
-      <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-ink-faint mb-3">
+<div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-ink-faint mb-3">
         {place.crowdLevel && <span>{t("crowd")}: {t(place.crowdLevel as any)}</span>}
         {place.walkingLevel && <span>{t("walking")}: {t(place.walkingLevel as any)}</span>}
         {typeof place.costSAR === "number" && (
           <span>{place.costSAR === 0 ? t("free") : `${place.costSAR} ${lang === "ar" ? "ريال" : "SAR"}`}</span>
         )}
       </div>
+
+      {place.accessibilityInfo && (
+        <div className="mb-3 flex items-start gap-1.5 text-[11px] text-ink-muted">
+          <span className="shrink-0">♿️</span>
+          <span>
+            <span className="text-ink-faint">{t("accessibility")}: </span>
+            {place.accessibilityInfo}
+          </span>
+        </div>
+      )}
 
       {isSelected && directions && (
         <div className="mb-3 rounded-xl2 border border-oasis/40 bg-oasis/5 px-3 py-2 text-xs text-oasis-bright flex justify-between">
