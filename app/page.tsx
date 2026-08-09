@@ -1,0 +1,61 @@
+"use client";
+
+import { useLang } from "@/lib/i18n";
+import { useApp } from "@/lib/store";
+import { LanguageToggle } from "@/components/LanguageToggle";
+import { ChatPanel } from "@/components/ChatPanel";
+import { MapPanel } from "@/components/MapPanel";
+import { RecommendationCards } from "@/components/RecommendationCards";
+import { DNAPanel } from "@/components/DNAPanel";
+import { FeedbackSection } from "@/components/FeedbackSection";
+import { TripContextWidget } from "@/components/TripContextWidget";
+
+// Single-page layout. Every section is an independent, context-driven
+// component so it can be restyled or repositioned freely without touching
+// the AI (lib/gemini.ts, lib/dna.ts), Maps, or Places logic behind it.
+
+export default function HomePage() {
+  const { t, lang } = useLang();
+  const { city } = useApp();
+
+  return (
+    <main className="mx-auto max-w-6xl px-6 py-8">
+      <header className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-oasis to-sand" />
+          <div>
+            <span className="font-display text-lg text-ink block leading-none">{t("appName")}</span>
+            <span className="text-[11px] text-ink-faint">
+              {lang === "ar" ? "رحلة لا تسألك عن نوع المسافر اللي فيك — تتعلّمه." : "Rihla doesn't ask what kind of traveler you are. It learns it."}
+            </span>
+          </div>
+        </div>
+        <LanguageToggle />
+      </header>
+
+      <div className="mb-6">
+        <TripContextWidget city={city} />
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <ChatPanel />
+        </div>
+        <div>
+          <DNAPanel />
+        </div>
+
+        <div className="lg:col-span-2">
+          <MapPanel />
+        </div>
+        <div>
+          <RecommendationCards />
+        </div>
+
+        <div className="lg:col-span-3">
+          <FeedbackSection />
+        </div>
+      </div>
+    </main>
+  );
+}

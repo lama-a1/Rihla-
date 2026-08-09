@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Space Grotesk", "IBM Plex Sans Arabic", sans-serif;
+  --font-body: "Inter", "IBM Plex Sans Arabic", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-arabic: "IBM Plex Sans Arabic", sans-serif;
+}
+
+html[dir="rtl"] {
+  --font-display: "IBM Plex Sans Arabic", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", sans-serif;
+}
+
+* {
+  border-color: theme("colors.night.line");
+}
+
+html,
+body {
+  background-color: #12141c;
+  color: #f2efe9;
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: #2fb8a6;
+  color: #12141c;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #2e3346;
+  border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
