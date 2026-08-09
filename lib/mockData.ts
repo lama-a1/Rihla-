@@ -25,6 +25,8 @@ export interface PlaceSeed {
   mapQuery: string;
   lat: number;
   lng: number;
+  accessibilityInfo: string;
+  accessibilityInfoAr: string;
   quietAlternativeOf?: string; // name of the busier place this can replace
 }
 
@@ -41,40 +43,40 @@ export const CITY_CENTERS: Record<string, LatLng> = {
 
 export const PLACES: Record<string, PlaceSeed[]> = {
   Riyadh: [
-    { name: "At-Turaif District", nameAr: "حي الطريف", category: "history", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 45, durationMinutes: 120, mapQuery: "At-Turaif District Diriyah Riyadh", lat: 24.7333, lng: 46.575 },
-    { name: "National Museum of Saudi Arabia", nameAr: "المتحف الوطني السعودي", category: "history", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 10, durationMinutes: 90, mapQuery: "National Museum of Saudi Arabia Riyadh", lat: 24.6408, lng: 46.7099, quietAlternativeOf: "At-Turaif District" },
-    { name: "Edge of the World", nameAr: "حافة العالم", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 0, durationMinutes: 180, mapQuery: "Edge of the World Riyadh", lat: 24.9756, lng: 45.9114 },
-    { name: "Wadi Namar", nameAr: "وادي نمار", category: "nature", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Wadi Namar Riyadh", lat: 24.5735, lng: 46.7247 },
-    { name: "Kingdom Centre Sky Bridge", nameAr: "جسر مركز المملكة", category: "photography", crowdLevel: "high", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 70, durationMinutes: 45, mapQuery: "Kingdom Centre Sky Bridge Riyadh", lat: 24.7116, lng: 46.6753 },
-    { name: "Riyadh Calligraphy House", nameAr: "بيت الرياض للخط", category: "culture", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Riyadh Calligraphy House", lat: 24.6877, lng: 46.6857, quietAlternativeOf: "Kingdom Centre Sky Bridge" },
-    { name: "Souq Al Zal", nameAr: "سوق الزل", category: "shopping", crowdLevel: "medium", indoorOutdoor: "mixed", walkingLevel: "moderate", costSAR: 0, durationMinutes: 75, mapQuery: "Souq Al Zal Riyadh", lat: 24.6274, lng: 46.7136 },
-    { name: "Najd Village Restaurant", nameAr: "قرية نجد", category: "food", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 90, durationMinutes: 75, mapQuery: "Najd Village Restaurant Riyadh", lat: 24.6913, lng: 46.6851 },
+    { name: "At-Turaif District", nameAr: "حي الطريف", category: "history", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 45, durationMinutes: 120, mapQuery: "At-Turaif District Diriyah Riyadh", lat: 24.7333, lng: 46.575, accessibilityInfo: "Paved walkways with ramps at main entrances; some sections have uneven historic terrain", accessibilityInfoAr: "ممرات مرصوفة مع منحدرات عند المداخل الرئيسية؛ بعض الأقسام فيها أرضية تاريخية غير مستوية" },
+    { name: "National Museum of Saudi Arabia", nameAr: "المتحف الوطني السعودي", category: "history", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 10, durationMinutes: 90, mapQuery: "National Museum of Saudi Arabia Riyadh", lat: 24.6408, lng: 46.7099, quietAlternativeOf: "At-Turaif District", accessibilityInfo: "Wheelchair-accessible entrance and elevators between floors; accessible restrooms", accessibilityInfoAr: "مدخل ومصاعد بين الطوابق مناسبة للكراسي المتحركة؛ دورات مياه مخصصة" },
+    { name: "Edge of the World", nameAr: "حافة العالم", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 0, durationMinutes: 180, mapQuery: "Edge of the World Riyadh", lat: 24.9756, lng: 45.9114, accessibilityInfo: "Off-road desert terrain with no paved paths — not wheelchair accessible", accessibilityInfoAr: "أرض صحراوية وعرة بدون ممرات مرصوفة — غير مناسبة للكراسي المتحركة" },
+    { name: "Wadi Namar", nameAr: "وادي نمار", category: "nature", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Wadi Namar Riyadh", lat: 24.5735, lng: 46.7247, accessibilityInfo: "Paved walking path along the water, wheelchair-friendly in most sections", accessibilityInfoAr: "ممر مشي مرصوف بجانب المياه، مناسب للكراسي المتحركة في معظم الأقسام" },
+    { name: "Kingdom Centre Sky Bridge", nameAr: "جسر مركز المملكة", category: "photography", crowdLevel: "high", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 70, durationMinutes: 45, mapQuery: "Kingdom Centre Sky Bridge Riyadh", lat: 24.7116, lng: 46.6753, accessibilityInfo: "Elevator access to the Sky Bridge; wheelchair-accessible throughout", accessibilityInfoAr: "الوصول بالمصعد إلى جسر السكاي بريدج؛ مناسب للكراسي المتحركة بالكامل" },
+    { name: "Riyadh Calligraphy House", nameAr: "بيت الرياض للخط", category: "culture", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Riyadh Calligraphy House", lat: 24.6877, lng: 46.6857, quietAlternativeOf: "Kingdom Centre Sky Bridge", accessibilityInfo: "Ground-floor galleries accessible; ramp at the main entrance", accessibilityInfoAr: "قاعات الطابق الأرضي يمكن الوصول إليها؛ يوجد منحدر عند المدخل الرئيسي" },
+    { name: "Souq Al Zal", nameAr: "سوق الزل", category: "shopping", crowdLevel: "medium", indoorOutdoor: "mixed", walkingLevel: "moderate", costSAR: 0, durationMinutes: 75, mapQuery: "Souq Al Zal Riyadh", lat: 24.6274, lng: 46.7136, accessibilityInfo: "Narrow alleys with uneven stone paving — limited wheelchair access", accessibilityInfoAr: "أزقة ضيقة بأرضية حجرية غير مستوية — إمكانية وصول محدودة للكراسي المتحركة" },
+    { name: "Najd Village Restaurant", nameAr: "قرية نجد", category: "food", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 90, durationMinutes: 75, mapQuery: "Najd Village Restaurant Riyadh", lat: 24.6913, lng: 46.6851, accessibilityInfo: "Ramp at entrance and accessible seating available; some sections have traditional floor seating", accessibilityInfoAr: "يوجد منحدر عند المدخل وطاولات يمكن الوصول إليها؛ بعض الأقسام فيها جلسات أرضية تقليدية" },
   ],
   Jeddah: [
-    { name: "Al-Balad Historic District", nameAr: "البلد التاريخية", category: "history", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 0, durationMinutes: 150, mapQuery: "Al-Balad Jeddah", lat: 21.4839, lng: 39.1827 },
-    { name: "Naseef House Museum", nameAr: "بيت نصيف", category: "history", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 15, durationMinutes: 60, mapQuery: "Naseef House Jeddah", lat: 21.4846, lng: 39.1839, quietAlternativeOf: "Al-Balad Historic District" },
-    { name: "Jeddah Corniche", nameAr: "كورنيش جدة", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Jeddah Corniche", lat: 21.5433, lng: 39.0996 },
-    { name: "King Fahd Fountain", nameAr: "نافورة الملك فهد", category: "photography", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 30, mapQuery: "King Fahd Fountain Jeddah", lat: 21.5624, lng: 39.1 },
-    { name: "Al Shallal Theme Park", nameAr: "الشلال", category: "photography", crowdLevel: "low", indoorOutdoor: "mixed", walkingLevel: "low", costSAR: 50, durationMinutes: 60, mapQuery: "Al Shallal Jeddah", lat: 21.573, lng: 39.15, quietAlternativeOf: "King Fahd Fountain" },
-    { name: "Baik Fahad", nameAr: "بيك فهد", category: "food", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 35, durationMinutes: 45, mapQuery: "Baik Fahad Jeddah", lat: 21.5433, lng: 39.1728 },
+    { name: "Al-Balad Historic District", nameAr: "البلد التاريخية", category: "history", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 0, durationMinutes: 150, mapQuery: "Al-Balad Jeddah", lat: 21.4839, lng: 39.1827, accessibilityInfo: "Narrow historic alleys with uneven cobblestone paving — difficult for wheelchairs", accessibilityInfoAr: "أزقة تاريخية ضيقة بأرضية حصى غير مستوية — صعبة على الكراسي المتحركة" },
+    { name: "Naseef House Museum", nameAr: "بيت نصيف", category: "history", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 15, durationMinutes: 60, mapQuery: "Naseef House Jeddah", lat: 21.4846, lng: 39.1839, quietAlternativeOf: "Al-Balad Historic District", accessibilityInfo: "Multi-story historic house with stairs only — no elevator", accessibilityInfoAr: "منزل تاريخي متعدد الطوابق بسلالم فقط — لا يوجد مصعد" },
+    { name: "Jeddah Corniche", nameAr: "كورنيش جدة", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Jeddah Corniche", lat: 21.5433, lng: 39.0996, accessibilityInfo: "Paved waterfront promenade, wheelchair-accessible", accessibilityInfoAr: "ممشى ساحلي مرصوف، مناسب للكراسي المتحركة" },
+    { name: "King Fahd Fountain", nameAr: "نافورة الملك فهد", category: "photography", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 30, mapQuery: "King Fahd Fountain Jeddah", lat: 21.5624, lng: 39.1, accessibilityInfo: "Accessible viewing area along the paved corniche", accessibilityInfoAr: "منطقة مشاهدة يسهل الوصول إليها على طول الكورنيش المرصوف" },
+    { name: "Al Shallal Theme Park", nameAr: "الشلال", category: "photography", crowdLevel: "low", indoorOutdoor: "mixed", walkingLevel: "low", costSAR: 50, durationMinutes: 60, mapQuery: "Al Shallal Jeddah", lat: 21.573, lng: 39.15, quietAlternativeOf: "King Fahd Fountain", accessibilityInfo: "Paved paths throughout the park; ride accessibility varies by attraction", accessibilityInfoAr: "ممرات مرصوفة في كل الحديقة؛ إمكانية الوصول للألعاب تختلف حسب اللعبة" },
+    { name: "Baik Fahad", nameAr: "بيك فهد", category: "food", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 35, durationMinutes: 45, mapQuery: "Baik Fahad Jeddah", lat: 21.5433, lng: 39.1728, accessibilityInfo: "Ground-floor accessible seating and ordering counter", accessibilityInfoAr: "طاولات ومنطقة الطلب في الطابق الأرضي يمكن الوصول إليها" },
   ],
   AlUla: [
-    { name: "Hegra (Madain Salih)", nameAr: "الحِجر (مدائن صالح)", category: "history", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 150, durationMinutes: 180, mapQuery: "Hegra AlUla", lat: 26.7944, lng: 37.9542 },
-    { name: "AlUla Old Town", nameAr: "بلدة العلا القديمة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "AlUla Old Town", lat: 26.61, lng: 37.92, quietAlternativeOf: "Hegra (Madain Salih)" },
-    { name: "Elephant Rock", nameAr: "صخرة الفيل", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Elephant Rock AlUla", lat: 26.6294, lng: 37.88 },
-    { name: "Maraya Concert Hall", nameAr: "مرايا", category: "culture", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 45, mapQuery: "Maraya AlUla", lat: 26.6103, lng: 37.9247 },
+    { name: "Hegra (Madain Salih)", nameAr: "الحِجر (مدائن صالح)", category: "history", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 150, durationMinutes: 180, mapQuery: "Hegra AlUla", lat: 26.7944, lng: 37.9542, accessibilityInfo: "Sandy, uneven desert terrain; accessible viewing platforms at key tombs", accessibilityInfoAr: "أرض صحراوية رملية غير مستوية؛ منصات مشاهدة مخصصة عند بعض المقابر الرئيسية" },
+    { name: "AlUla Old Town", nameAr: "بلدة العلا القديمة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "AlUla Old Town", lat: 26.61, lng: 37.92, quietAlternativeOf: "Hegra (Madain Salih)", accessibilityInfo: "Uneven mudbrick alleys — limited wheelchair access in older sections", accessibilityInfoAr: "أزقة طينية غير مستوية — إمكانية وصول محدودة للكراسي المتحركة بالأقسام القديمة" },
+    { name: "Elephant Rock", nameAr: "صخرة الفيل", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Elephant Rock AlUla", lat: 26.6294, lng: 37.88, accessibilityInfo: "Unpaved sand approach to the viewpoint — not wheelchair accessible", accessibilityInfoAr: "الطريق إلى نقطة المشاهدة رملي غير مرصوف — غير مناسب للكراسي المتحركة" },
+    { name: "Maraya Concert Hall", nameAr: "مرايا", category: "culture", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 45, mapQuery: "Maraya AlUla", lat: 26.6103, lng: 37.9247, accessibilityInfo: "Fully wheelchair-accessible modern venue with elevators", accessibilityInfoAr: "مبنى حديث مناسب بالكامل للكراسي المتحركة مع مصاعد" },
   ],
   Diriyah: [
-    { name: "Bujairi Terrace", nameAr: "شرفة البجيري", category: "food", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 100, durationMinutes: 90, mapQuery: "Bujairi Terrace Diriyah", lat: 24.7386, lng: 46.575 },
-    { name: "Diriyah Art Futures", nameAr: "مستقبل الفن بالدرعية", category: "culture", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Diriyah Art Futures", lat: 24.735, lng: 46.573, quietAlternativeOf: "Bujairi Terrace" },
+    { name: "Bujairi Terrace", nameAr: "شرفة البجيري", category: "food", crowdLevel: "high", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 100, durationMinutes: 90, mapQuery: "Bujairi Terrace Diriyah", lat: 24.7386, lng: 46.575, accessibilityInfo: "Paved terrace with wheelchair-accessible restaurant entrances", accessibilityInfoAr: "شرفة مرصوفة بمداخل مطاعم يمكن الوصول إليها بالكراسي المتحركة" },
+    { name: "Diriyah Art Futures", nameAr: "مستقبل الفن بالدرعية", category: "culture", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Diriyah Art Futures", lat: 24.735, lng: 46.573, quietAlternativeOf: "Bujairi Terrace", accessibilityInfo: "Modern gallery with wheelchair-accessible entrance and exhibit spaces", accessibilityInfoAr: "معرض حديث بمدخل وقاعات عرض يمكن الوصول إليها بالكراسي المتحركة" },
   ],
   Abha: [
-    { name: "Al Soudah Park", nameAr: "متنزه السودة", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 20, durationMinutes: 120, mapQuery: "Al Soudah Park Abha", lat: 18.27, lng: 42.36 },
-    { name: "Habala Village", nameAr: "قرية حبالة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 30, durationMinutes: 90, mapQuery: "Habala Village Abha", lat: 18.12, lng: 42.47 },
+    { name: "Al Soudah Park", nameAr: "متنزه السودة", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 20, durationMinutes: 120, mapQuery: "Al Soudah Park Abha", lat: 18.27, lng: 42.36, accessibilityInfo: "Cable car available; paved viewpoints, but hiking trails are steep and uneven", accessibilityInfoAr: "يتوفر تلفريك؛ نقاط مشاهدة مرصوفة، لكن مسارات المشي شديدة الانحدار وغير مستوية" },
+    { name: "Habala Village", nameAr: "قرية حبالة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 30, durationMinutes: 90, mapQuery: "Habala Village Abha", lat: 18.12, lng: 42.47, accessibilityInfo: "Steep cliffside terrain reached by cable car; limited wheelchair mobility on-site", accessibilityInfoAr: "أرض جبلية شديدة الانحدار يتم الوصول إليها بالتلفريك؛ حركة الكراسي المتحركة محدودة بالموقع" },
   ],
   Madinah: [
-    { name: "Quba Mosque", nameAr: "مسجد قباء", category: "history", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Quba Mosque Madinah", lat: 24.4392, lng: 39.6172 },
-    { name: "Al-Baqi Cemetery View", nameAr: "البقيع", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 30, mapQuery: "Al Baqi Madinah", lat: 24.47, lng: 39.6117 },
+    { name: "Quba Mosque", nameAr: "مسجد قباء", category: "history", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Quba Mosque Madinah", lat: 24.4392, lng: 39.6172, accessibilityInfo: "Fully wheelchair-accessible with ramps and accessible restrooms", accessibilityInfoAr: "مناسب بالكامل للكراسي المتحركة مع منحدرات ودورات مياه مخصصة" },
+    { name: "Al-Baqi Cemetery View", nameAr: "البقيع", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 30, mapQuery: "Al Baqi Madinah", lat: 24.47, lng: 39.6117, accessibilityInfo: "Flat, paved viewing area — wheelchair-accessible", accessibilityInfoAr: "منطقة مشاهدة مرصوفة ومستوية — مناسبة للكراسي المتحركة" },
   ],
 };
 
@@ -105,12 +107,33 @@ export function getPrayerTimesMock(): PrayerTimes {
 
 // --- DNA-aware place scoring (Places API fallback) -----------------------
 
-/**
- * Scores how well a place fits the current Travel DNA + this request's
- * filters. Higher is better. Used both to rank the mock Places fallback and
- * as a plain-language basis for the `reason` shown on each recommendation.
- */
-export function scorePlaceForDNA(place: PlaceSeed, dna: TravelDNA, filters: IntentFilters): number {
+// Detects free-text mobility/accessibility needs that should heavily bias
+// place selection toward low-walking, indoor-friendly options — independent
+// of whatever the current chat message happens to mention.
+export function isLimitedMobility(mobilityNeeds: string): boolean {
+  if (!mobilityNeeds) return false;
+  const text = mobilityNeeds.toLowerCase();
+  const keywords = [
+    "wheelchair",
+    "limited walking",
+    "limited mobility",
+    "can't walk",
+    "cannot walk",
+    "low mobility",
+    "mobility issue",
+    "كرسي متحرك",
+    "صعوبة مشي",
+    "صعوبة بالمشي",
+    "مشي محدود",
+    "لا أقدر أمشي",
+    "لا استطيع المشي",
+    "إعاقة",
+    "اعاقة",
+  ];
+  return keywords.some((k) => text.includes(k));
+}
+
+export function scorePlaceForDNA(place: PlaceSeed, dna: TravelDNA, filters: IntentFilters, mobilityNeeds = ""): number {
   let score = 0;
   const traitByCategory: Record<string, number> = {
     history: dna.history,
@@ -121,24 +144,41 @@ export function scorePlaceForDNA(place: PlaceSeed, dna: TravelDNA, filters: Inte
     shopping: dna.shopping,
   };
   score += traitByCategory[place.category] ?? 0;
-
   if (place.crowdLevel === "high") score -= (100 - dna.crowdTolerance) * 0.5;
   if (place.crowdLevel === "low") score += dna.quietPreference * 0.3;
   if (place.walkingLevel === "high") score -= (100 - dna.walkingTolerance) * 0.3;
   if (place.indoorOutdoor === "indoor") score += dna.indoorPreference * 0.15;
   if (place.costSAR === 0) score += dna.budgetSensitivity * 0.15;
   else score -= (dna.budgetSensitivity / 100) * place.costSAR * 0.1;
-
   if (filters.quiet && place.crowdLevel !== "low") score -= 20;
   if (filters.indoor && place.indoorOutdoor === "outdoor") score -= 20;
   if (filters.lowWalking && place.walkingLevel === "high") score -= 20;
   if (filters.cheap && place.costSAR > 40) score -= 20;
   if (filters.hiddenGem && place.crowdLevel === "high") score -= 15;
 
+  // Stated accessibility/mobility needs take priority over general
+  // preferences. We check the place's actual accessibility description
+  // (ramps, elevators, uneven terrain, stairs-only, etc.) — not just the
+  // walking-level estimate — since that's the real, concrete signal.
+  if (isLimitedMobility(mobilityNeeds)) {
+    const info = (place.accessibilityInfo || "").toLowerCase();
+    const positive = ["wheelchair", "ramp", "elevator", "accessible", "paved", "flat"];
+    const negative = ["not wheelchair", "stairs only", "uneven", "unpaved", "steep", "narrow alleys", "off-road", "no elevator"];
+    if (positive.some((k) => info.includes(k))) score += 40;
+    if (negative.some((k) => info.includes(k))) score -= 50;
+
+    if (place.walkingLevel === "high") score -= 60;
+    if (place.walkingLevel === "moderate") score -= 25;
+    if (place.indoorOutdoor === "indoor") score += 15;
+  }
+
   return score;
 }
 
-function reasonForPlace(place: PlaceSeed, dna: TravelDNA, filters: IntentFilters, lang: "en" | "ar" = "en"): string {
+function reasonForPlace(place: PlaceSeed, dna: TravelDNA, filters: IntentFilters, lang: "en" | "ar" = "en", mobilityNeeds = ""): string {
+  if (isLimitedMobility(mobilityNeeds) && place.walkingLevel === "low") {
+    return lang === "ar" ? "مشي قليل — يناسب احتياجات الحركة اللي ذكرتها." : "Low walking required — fits the mobility needs you noted.";
+  }
   if (lang === "ar") {
     if (filters.quiet && place.crowdLevel === "low") return "مكان هادئ يناسب اللي طلبته.";
     if (filters.indoor && place.indoorOutdoor === "indoor") return "مكان مغلق، حسب طلبك.";
@@ -182,19 +222,26 @@ export function searchMockPlaces(
     .map(({ p }) => placeToRecommendation(p, dna, filters, lang));
 }
 
-function placeToRecommendation(p: PlaceSeed, dna: TravelDNA, filters: IntentFilters, lang: "en" | "ar" = "en"): RecommendedPlace {
+function placeToRecommendation(
+  p: PlaceSeed,
+  dna: TravelDNA,
+  filters: IntentFilters,
+  lang: "en" | "ar" = "en",
+  mobilityNeeds = ""
+): RecommendedPlace {
   return {
     id: p.name.replace(/\s+/g, "-").toLowerCase(),
     name: p.name,
     nameAr: p.nameAr,
     category: p.category,
-    reason: reasonForPlace(p, dna, filters, lang),
+    reason: reasonForPlace(p, dna, filters, lang, mobilityNeeds),
     lat: p.lat,
     lng: p.lng,
     costSAR: p.costSAR,
     crowdLevel: p.crowdLevel,
     walkingLevel: p.walkingLevel,
     indoorOutdoor: p.indoorOutdoor,
+    accessibilityInfo: lang === "ar" ? p.accessibilityInfoAr : p.accessibilityInfo,
     mapQuery: p.mapQuery,
     source: "mock",
   };
