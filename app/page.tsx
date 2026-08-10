@@ -24,7 +24,7 @@ export default function HomePage() {
     <main className="mx-auto max-w-6xl px-6 py-8">
       <header className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
-           <img src="/logo-icon.png" alt="Rihla" className="h-9 w-9 object-contain shrink-0" />
+           <img src="/rihla-logo.png" alt="Rihla" className="h-9 w-9 object-contain shrink-0" />
           <div>
             <span className="font-display text-3xl text-ink block leading-none">{t("appName")}</span>
             <span className="text-[14px] text-ink-faint">
