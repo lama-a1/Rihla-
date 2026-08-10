@@ -9,7 +9,7 @@ import { useLang } from "@/lib/i18n";
 // no layout shift when it disappears, just a cross-fade.
 
 const DESCRIPTION_AR =
-  "رحلة رفيق سفر ذكي لاستكشاف السعودية. قول لها وش يخطر ببالك، وهي تتعلّم أسلوبك في السفر وتقترح عليك أماكن حقيقية على خريطة حقيقية، مع المسار والمسافة والوقت المتوقع، وتزيد ذكاءً مع كل رحلة.";
+  "رحلة رفيق سفر ذكي لاستكشاف المملكة العربية السعودية. أخبرها بما يدور في ذهنك، وهي تتعلّم أسلوبك في السفر، وتقترح لك أماكن حقيقية على خريطة حقيقية، مع المسار والمسافة والوقت المتوقع، وتزداد ذكاءً مع كل رحلة.";
 
 const DESCRIPTION_EN =
   "Rihla is an AI travel companion for exploring Saudi Arabia. Tell it what you're in the mood for and it learns your travel style then suggests real places on a real map, with routes, distance and estimated time, getting sharper with every trip.";
