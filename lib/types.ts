@@ -68,6 +68,7 @@ export interface RecommendedPlace {
   walkingLevel?: "low" | "moderate" | "high";
   indoorOutdoor?: "indoor" | "outdoor" | "mixed";
   accessibilityInfo?: string;
+  accessibilityInfoAr?: string;
   mapQuery: string;
   source: "places" | "mock";
 }
