@@ -136,7 +136,7 @@ export function describeDNA(dna: TravelDNA, lang: "en" | "ar" = "en"): string {
   };
 
   if (lang === "ar") {
-    return `يميل حاليًا نحو ${labelsAr[topTrait[0]]} — وسيصبح أوضح كل ما تحدثت أكثر.`;
+    return `يميل حاليًا نحو ${labelsAr[topTrait[0]]} ، وسيصبح أوضح كل ما تحدثت أكثر.`;
   }
-  return `Leaning toward ${labelsEn[topTrait[0]]} so far — this will sharpen as you chat more.`;
+  return `Leaning toward ${labelsEn[topTrait[0]]} so far , this will sharpen as you chat more.`;
 }
