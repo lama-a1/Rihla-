@@ -81,7 +81,7 @@ export function ChatPanel() {
       <div className="flex-1 overflow-y-auto scrollbar-thin space-y-3 mb-4 min-h-[160px]">
         {messages.length === 0 && (
           <p className="text-sm text-ink-faint italic">
-            {lang === "ar" ? "لا توجد رسائل بعد — جرّب تكتب طلبك." : "No messages yet — try typing a request."}
+            {lang === "ar" ? "لا توجد رسائل بعد. جرّب تكتب طلبك." : "No messages yet. Try typing a request."}
           </p>
         )}
         {messages.map((m) => (
