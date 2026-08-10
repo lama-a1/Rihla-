@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const results = searchMockPlaces(city, category, dna, filters, excludeNames, 5, lang);
+  const results = searchMockPlaces(city, category, dna, filters, excludeNames, 5, mobilityNeeds);
   return NextResponse.json(results);
 }
 
@@ -50,14 +50,13 @@ async function searchGooglePlaces(
     throw new Error(`Places API status: ${data.status}`);
   }
 
-  const reasonText = lang === "ar" ? "مكان حقيقي من غوغل بليسز، يطابق طلبك." : "Real place from Google Places, matched to your request.";
-
-  return data.results.slice(0, 8).map(
+ return data.results.slice(0, 8).map(
     (r: any): RecommendedPlace => ({
       id: r.place_id,
       name: r.name,
       category: category && category !== "general" ? category : "general",
-      reason: reasonText,
+      reason: "Real place from Google Places, matched to your request.",
+      reasonAr: "مكان حقيقي من غوغل بليسز، يطابق طلبك.",
       lat: r.geometry?.location?.lat ?? CITY_CENTERS[city]?.lat ?? 24.7136,
       lng: r.geometry?.location?.lng ?? CITY_CENTERS[city]?.lng ?? 46.6753,
       crowdLevel: r.user_ratings_total > 2000 ? "high" : r.user_ratings_total > 500 ? "medium" : "low",
