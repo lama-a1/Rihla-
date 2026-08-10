@@ -74,7 +74,7 @@ export function ChatPanel() {
       <h2 className="font-display text-lg text-ink mb-1">{lang === "ar" ? "اسأل رحلة" : "Ask Rihla"}</h2>
       <p className="text-xs text-ink-faint mb-4">
         {lang === "ar"
-          ? 'مثال: "أبي مكان تاريخي هادئ قريب" أو "ودي شي للتصوير"'
+          ? 'مثال: "أرغب في زيارة مكان تاريخي هادئ بالقرب مني" أو "أبحث عن مكان مناسب للتصوير"'
           : 'e.g. "I want a quiet historical place nearby" or "somewhere good for photography"'}
       </p>
 
