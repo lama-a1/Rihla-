@@ -17,7 +17,7 @@ export function DNAPanel() {
 
   return (
     <Card className="p-5 h-full">
-      <div className="flex items-start justify-between mb-1">
+      <div className="flex items-center justify-between mb-1">
         <h2 className="font-display text-lg text-ink">{t("dnaTitle")}</h2>
         {lastDNAChange && lastDNAChange.length > 0 && (
           <span className="text-[10px] uppercase tracking-wide rounded-full bg-clay/20 text-clay px-2 py-0.5 animate-pulseSlow">
