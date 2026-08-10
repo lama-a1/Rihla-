@@ -30,7 +30,7 @@ export function IntroSplash({ onDone }: { onDone: () => void }) {
   return (
     <div
       onClick={onDone}
-      style={{ backgroundColor: "#12141c" }}
+      style={{ backgroundColor: "var(--color-night, #12141c)" }}
       className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center gap-4 px-6 cursor-pointer transition-opacity duration-500 ${
         fading ? "opacity-0" : "opacity-100"
       }`}
