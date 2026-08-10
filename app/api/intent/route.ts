@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       });
       return NextResponse.json(result);
     } catch (err) {
-      console.error("Gemini intent extraction failed, using fallback:", err);
+      console.error("[gemini] FAILED — falling back to keyword matching:", err);
     }
   }
 
