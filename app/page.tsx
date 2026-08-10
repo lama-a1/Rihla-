@@ -26,7 +26,7 @@ export default function HomePage() {
         <div className="flex items-center gap-2">
           <div>
             <span className="font-display text-lg text-ink block leading-none">{t("appName")}</span>
-            <span className="text-[40px] text-ink-faint">
+            <span className="text-[14px] text-ink-faint">
               {lang === "ar" ? "رحلة لا تسألك عن نوع المسافر اللي فيك.. تتعلّمه." : "Rihla doesn't ask what kind of traveler you are.. It learns it."}
             </span>
           </div>
