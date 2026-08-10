@@ -6,7 +6,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 //
 // Model name is centralized here ONLY — nowhere else in the project
 // references a model string directly, so changing it here is sufficient.
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 
 export function isGeminiConfigured(): boolean {
   return Boolean(process.env.GEMINI_API_KEY);
