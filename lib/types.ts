@@ -61,6 +61,7 @@ export interface RecommendedPlace {
   nameAr?: string;
   category: string;
   reason: string;
+  reasonAr?: string;
   lat: number;
   lng: number;
   costSAR?: number;
