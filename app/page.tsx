@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useLang } from "@/lib/i18n";
 import { useApp } from "@/lib/store";
 import { LanguageToggle } from "@/components/LanguageToggle";
