@@ -16,7 +16,7 @@ export function DNAPanel() {
   const { lang, t } = useLang();
 
   return (
-    <Card className="p-5 h-full">
+    <Card className="p-5 flex flex-col"> 
       <div className="flex items-center justify-between mb-1">
         <h2 className="font-display text-lg text-ink">{t("dnaTitle")}</h2>
         {lastDNAChange && lastDNAChange.length > 0 && (
