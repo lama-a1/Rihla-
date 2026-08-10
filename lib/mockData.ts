@@ -30,7 +30,7 @@ export interface PlaceSeed {
   quietAlternativeOf?: string; // name of the busier place this can replace
 }
 
-export const CITIES = ["Riyadh", "Jeddah", "AlUla", "Diriyah", "Abha", "Madinah"];
+export const CITIES = ["Riyadh", "Jeddah", "AlUla", "Diriyah", "Abha", "Madinah", "Dammam", "Qassim", "Hail", "Taif"];
 
 export const CITY_CENTERS: Record<string, LatLng> = {
   Riyadh: { lat: 24.7136, lng: 46.6753 },
@@ -39,6 +39,10 @@ export const CITY_CENTERS: Record<string, LatLng> = {
   Diriyah: { lat: 24.7386, lng: 46.575 },
   Abha: { lat: 18.2465, lng: 42.5117 },
   Madinah: { lat: 24.5247, lng: 39.5692 },
+  Dammam: { lat: 26.4207, lng: 50.0888 },
+  Qassim: { lat: 26.326, lng: 43.975 },
+  Hail: { lat: 27.5114, lng: 41.7208 },
+  Taif: { lat: 21.2703, lng: 40.4158 },
 };
 
 export const PLACES: Record<string, PlaceSeed[]> = {
@@ -78,6 +82,22 @@ export const PLACES: Record<string, PlaceSeed[]> = {
     { name: "Quba Mosque", nameAr: "مسجد قباء", category: "history", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Quba Mosque Madinah", lat: 24.4392, lng: 39.6172, accessibilityInfo: "Fully wheelchair-accessible with ramps and accessible restrooms", accessibilityInfoAr: "مناسب بالكامل للكراسي المتحركة مع منحدرات ودورات مياه مخصصة" },
     { name: "Al-Baqi Cemetery View", nameAr: "البقيع", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 30, mapQuery: "Al Baqi Madinah", lat: 24.47, lng: 39.6117, accessibilityInfo: "Flat, paved viewing area — wheelchair-accessible", accessibilityInfoAr: "منطقة مشاهدة مرصوفة ومستوية — مناسبة للكراسي المتحركة" },
   ],
+  Dammam: [
+    { name: "Ithra (King Abdulaziz Center for World Culture)", nameAr: "إثراء (مركز الملك عبدالعزيز الثقافي العالمي)", category: "culture", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 30, durationMinutes: 150, mapQuery: "Ithra King Abdulaziz Center Dhahran", lat: 26.3049, lng: 50.1441, accessibilityInfo: "Fully wheelchair-accessible modern building with elevators and accessible restrooms", accessibilityInfoAr: "مبنى حديث مناسب بالكامل للكراسي المتحركة مع مصاعد ودورات مياه مخصصة" },
+    { name: "Dammam Corniche", nameAr: "كورنيش الدمام", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Dammam Corniche", lat: 26.445, lng: 50.105, accessibilityInfo: "Paved waterfront promenade, wheelchair-accessible", accessibilityInfoAr: "ممشى ساحلي مرصوف، مناسب للكراسي المتحركة" },
+  ],
+  Qassim: [
+    { name: "Unaizah Old Town", nameAr: "بلدة عنيزة القديمة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Unaizah Old Town Qassim", lat: 26.0975, lng: 43.9903, accessibilityInfo: "Uneven mudbrick alleys — limited wheelchair access in older sections", accessibilityInfoAr: "أزقة طينية غير مستوية — إمكانية وصول محدودة للكراسي المتحركة بالأقسام القديمة" },
+    { name: "Buraidah Central Souq", nameAr: "سوق بريدة المركزي", category: "shopping", crowdLevel: "medium", indoorOutdoor: "mixed", walkingLevel: "moderate", costSAR: 0, durationMinutes: 75, mapQuery: "Buraidah Central Souq Qassim", lat: 26.326, lng: 43.975, accessibilityInfo: "Mostly paved market lanes; some sections crowded and uneven", accessibilityInfoAr: "ممرات السوق مرصوفة غالبًا؛ بعض الأقسام مزدحمة وغير مستوية" },
+  ],
+  Hail: [
+    { name: "Al Qishlah Palace", nameAr: "قصر القشلة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 60, mapQuery: "Al Qishlah Palace Hail", lat: 27.5219, lng: 41.6907, accessibilityInfo: "Historic fort with uneven stone terrain — limited wheelchair access", accessibilityInfoAr: "قلعة تاريخية بأرضية حجرية غير مستوية — إمكانية وصول محدودة للكراسي المتحركة" },
+    { name: "Hail Heritage Village", nameAr: "قرية حائل التراثية", category: "culture", crowdLevel: "low", indoorOutdoor: "mixed", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Hail Heritage Village", lat: 27.515, lng: 41.695, accessibilityInfo: "Mostly flat paths with some indoor exhibit halls", accessibilityInfoAr: "ممرات مستوية غالبًا مع بعض القاعات الداخلية للمعروضات" },
+  ],
+  Taif: [
+    { name: "Al Rudaf Park", nameAr: "منتزه الرداف", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 90, mapQuery: "Al Rudaf Park Taif", lat: 21.2854, lng: 40.4239, accessibilityInfo: "Paved walking paths and family areas, wheelchair-friendly", accessibilityInfoAr: "ممرات مشي مرصوفة ومناطق عائلية، مناسبة للكراسي المتحركة" },
+    { name: "Al-Shafa Mountain Viewpoint", nameAr: "جبل الشفا", category: "photography", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 0, durationMinutes: 120, mapQuery: "Al-Shafa Mountain Taif", lat: 21.05, lng: 40.2833, accessibilityInfo: "Mountain terrain with uneven, unpaved viewpoints — not wheelchair accessible", accessibilityInfoAr: "أرض جبلية غير مستوية وغير مرصوفة عند نقاط المشاهدة — غير مناسبة للكراسي المتحركة" },
+  ],
 };
 
 export function getWeatherMock(city: string): WeatherInfo {
@@ -99,7 +119,59 @@ export const CITY_NAMES_AR: Record<string, string> = {
   Diriyah: "الدرعية",
   Abha: "أبها",
   Madinah: "المدينة المنورة",
+  Dammam: "الدمام",
+  Qassim: "القصيم",
+  Hail: "حائل",
+  Taif: "الطائف",
 };
+
+// Keyword -> city, for detecting an explicit city mention in a chat message.
+// Explicit mentions always override the auto-detected (geolocation) city.
+const CITY_KEYWORDS: [string, string][] = [
+  ["riyadh", "Riyadh"],
+  ["الرياض", "Riyadh"],
+  ["jeddah", "Jeddah"],
+  ["jedda", "Jeddah"],
+  ["جدة", "Jeddah"],
+  ["alula", "AlUla"],
+  ["al-ula", "AlUla"],
+  ["العلا", "AlUla"],
+  ["diriyah", "Diriyah"],
+  ["الدرعية", "Diriyah"],
+  ["abha", "Abha"],
+  ["أبها", "Abha"],
+  ["madinah", "Madinah"],
+  ["medina", "Madinah"],
+  ["المدينة المنورة", "Madinah"],
+  ["المدينة", "Madinah"],
+  ["dammam", "Dammam"],
+  ["khobar", "Dammam"],
+  ["dhahran", "Dammam"],
+  ["الدمام", "Dammam"],
+  ["الخبر", "Dammam"],
+  ["الظهران", "Dammam"],
+  ["qassim", "Qassim"],
+  ["qaseem", "Qassim"],
+  ["buraidah", "Qassim"],
+  ["buraydah", "Qassim"],
+  ["unaizah", "Qassim"],
+  ["القصيم", "Qassim"],
+  ["بريدة", "Qassim"],
+  ["عنيزة", "Qassim"],
+  ["hail", "Hail"],
+  ["حائل", "Hail"],
+  ["taif", "Taif"],
+  ["الطائف", "Taif"],
+];
+
+/** Scans free text for an explicit mention of one of our supported cities. */
+export function detectCityMention(text: string): string | null {
+  const lower = text.toLowerCase();
+  for (const [keyword, city] of CITY_KEYWORDS) {
+    if (lower.includes(keyword)) return city;
+  }
+  return null;
+}
 
 export function getPrayerTimesMock(): PrayerTimes {
   return { fajr: "04:35", dhuhr: "12:15", asr: "15:40", maghrib: "18:50", isha: "20:20" };
@@ -144,12 +216,14 @@ export function scorePlaceForDNA(place: PlaceSeed, dna: TravelDNA, filters: Inte
     shopping: dna.shopping,
   };
   score += traitByCategory[place.category] ?? 0;
+
   if (place.crowdLevel === "high") score -= (100 - dna.crowdTolerance) * 0.5;
   if (place.crowdLevel === "low") score += dna.quietPreference * 0.3;
   if (place.walkingLevel === "high") score -= (100 - dna.walkingTolerance) * 0.3;
   if (place.indoorOutdoor === "indoor") score += dna.indoorPreference * 0.15;
   if (place.costSAR === 0) score += dna.budgetSensitivity * 0.15;
   else score -= (dna.budgetSensitivity / 100) * place.costSAR * 0.1;
+
   if (filters.quiet && place.crowdLevel !== "low") score -= 20;
   if (filters.indoor && place.indoorOutdoor === "outdoor") score -= 20;
   if (filters.lowWalking && place.walkingLevel === "high") score -= 20;
@@ -175,6 +249,10 @@ export function scorePlaceForDNA(place: PlaceSeed, dna: TravelDNA, filters: Inte
   return score;
 }
 
+// Always computes BOTH language versions of the reason text (mirroring how
+// name/nameAr already work) — instead of only the currently-requested
+// language. This lets the UI switch languages instantly without needing to
+// re-fetch recommendations; see RecommendationCard.tsx for the pick logic.
 function reasonForPlace(
   place: PlaceSeed,
   dna: TravelDNA,
@@ -235,6 +313,7 @@ export function searchMockPlaces(
     .slice(0, limit)
     .map(({ p }) => placeToRecommendation(p, dna, filters, mobilityNeeds));
 }
+
 function placeToRecommendation(p: PlaceSeed, dna: TravelDNA, filters: IntentFilters, mobilityNeeds = ""): RecommendedPlace {
   const reason = reasonForPlace(p, dna, filters, mobilityNeeds);
   return {
@@ -270,6 +349,7 @@ export function haversineDistanceMeters(a: LatLng, b: LatLng): number {
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
 }
+
 /** Finds which of our supported cities is geographically closest to a point. */
 export function findNearestCity(point: LatLng): string {
   let nearest = "Riyadh";
