@@ -12,6 +12,7 @@ import { FeedbackSection } from "@/components/FeedbackSection";
 import { TripContextWidget } from "@/components/TripContextWidget";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { IntroSplash } from "@/components/IntroSplash";
 
 // Single-page layout. Every section is an independent, context-driven
 // component so it can be restyled or repositioned freely without touching
@@ -20,9 +21,12 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 export default function HomePage() {
   const { t, lang } = useLang();
   const { city, reset } = useApp();
+  const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-8">
+    <>
+      {showIntro && <IntroSplash onDone={() => setShowIntro(false)} />}
+      <main className="mx-auto max-w-6xl px-6 py-8">
       <header className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
            <img src="/logo.png" alt="Rihla" className="h-9 w-9 object-contain shrink-0" />
@@ -75,5 +79,6 @@ export default function HomePage() {
         </div>
       </div>
     </main>
+    </>
   );
 }
