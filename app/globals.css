@@ -8,43 +8,40 @@
   --font-mono: "IBM Plex Mono", monospace;
   --font-arabic: "IBM Plex Sans Arabic", sans-serif;
 
-  /* Dark theme (default) — warm oud-wood coffee brown, gold, and terracotta,
-     inspired by traditional Najdi architecture and sadu weaving colors. */
-  --color-night: #241c15;
-  --color-night-panel: #2f251c;
-  --color-night-soft: #3a2e22;
-  --color-night-line: #4a3b2c;
-  --color-sand: #c9a227;
-  --color-sand-bright: #e0be4a;
-  --color-sand-dim: #8c6f1e;
-  --color-oasis: #a8703a;
-  --color-oasis-bright: #c98f52;
-  --color-oasis-dim: #7a4f28;
-  --color-clay: #8b3a2b;
-  --color-ink: #f3ead9;
-  --color-ink-muted: #c4b29c;
-  --color-ink-faint: #8a7860;
+  /* Dark theme (default) */
+  --color-night: #12141c;
+  --color-night-panel: #1b1e2b;
+  --color-night-soft: #232739;
+  --color-night-line: #2e3346;
+  --color-sand: #d4a24c;
+  --color-sand-bright: #e6bb6c;
+  --color-sand-dim: #8a6b3a;
+  --color-oasis: #2fb8a6;
+  --color-oasis-bright: #4fdcc8;
+  --color-oasis-dim: #1f7a6e;
+  --color-clay: #c9714a;
+  --color-ink: #f2efe9;
+  --color-ink-muted: #9ba0b4;
+  --color-ink-faint: #5c6178;
 }
 
-/* Light theme — toggled via data-theme="light" on <html>, see lib/theme.tsx.
-   Warm parchment/beige, matching the dark theme's heritage palette. */
+/* Light theme — toggled via data-theme="light" on <html>, see lib/theme.tsx */
 [data-theme="light"] {
-  --color-night: #f5eedd;
-  --color-night-panel: #fffdf8;
-  --color-night-soft: #ede2cb;
-  --color-night-line: #dbc9a8;
-  --color-sand: #a8791e;
-  --color-sand-bright: #8a6216;
-  --color-sand-dim: #c9a860;
-  --color-oasis: #8b5a2b;
-  --color-oasis-bright: #6e4620;
-  --color-oasis-dim: #a8703a;
-  --color-clay: #7a3325;
-  --color-ink: #2b2013;
-  --color-ink-muted: #6b5a42;
-  --color-ink-faint: #9c8b70;
+  --color-night: #f7f5f2;
+  --color-night-panel: #ffffff;
+  --color-night-soft: #f0ede8;
+  --color-night-line: #e2ded7;
+  --color-sand: #b9822e;
+  --color-sand-bright: #96692a;
+  --color-sand-dim: #d8b679;
+  --color-oasis: #1f9484;
+  --color-oasis-bright: #167a6c;
+  --color-oasis-dim: #2fb8a6;
+  --color-clay: #a85736;
+  --color-ink: #1b1e2b;
+  --color-ink-muted: #545b6e;
+  --color-ink-faint: #8b92a6;
 }
-
 html[dir="rtl"] {
   --font-display: "IBM Plex Sans Arabic", sans-serif;
   --font-body: "IBM Plex Sans Arabic", sans-serif;
