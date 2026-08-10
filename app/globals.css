@@ -7,6 +7,42 @@
   --font-body: "Inter", "IBM Plex Sans Arabic", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
   --font-arabic: "IBM Plex Sans Arabic", sans-serif;
+
+  /* Dark theme (default) — warm oud-wood coffee brown, gold, and terracotta,
+     inspired by traditional Najdi architecture and sadu weaving colors. */
+  --color-night: #241c15;
+  --color-night-panel: #2f251c;
+  --color-night-soft: #3a2e22;
+  --color-night-line: #4a3b2c;
+  --color-sand: #c9a227;
+  --color-sand-bright: #e0be4a;
+  --color-sand-dim: #8c6f1e;
+  --color-oasis: #a8703a;
+  --color-oasis-bright: #c98f52;
+  --color-oasis-dim: #7a4f28;
+  --color-clay: #8b3a2b;
+  --color-ink: #f3ead9;
+  --color-ink-muted: #c4b29c;
+  --color-ink-faint: #8a7860;
+}
+
+/* Light theme — toggled via data-theme="light" on <html>, see lib/theme.tsx.
+   Warm parchment/beige, matching the dark theme's heritage palette. */
+[data-theme="light"] {
+  --color-night: #f5eedd;
+  --color-night-panel: #fffdf8;
+  --color-night-soft: #ede2cb;
+  --color-night-line: #dbc9a8;
+  --color-sand: #a8791e;
+  --color-sand-bright: #8a6216;
+  --color-sand-dim: #c9a860;
+  --color-oasis: #8b5a2b;
+  --color-oasis-bright: #6e4620;
+  --color-oasis-dim: #a8703a;
+  --color-clay: #7a3325;
+  --color-ink: #2b2013;
+  --color-ink-muted: #6b5a42;
+  --color-ink-faint: #9c8b70;
 }
 
 html[dir="rtl"] {
@@ -15,13 +51,14 @@ html[dir="rtl"] {
 }
 
 * {
-  border-color: theme("colors.night.line");
+  border-color: var(--color-night-line);
 }
 
 html,
 body {
-  background-color: #12141c;
-  color: #f2efe9;
+  background-color: var(--color-night);
+  color: var(--color-ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 body {
@@ -39,8 +76,8 @@ body {
 }
 
 ::selection {
-  background: #2fb8a6;
-  color: #12141c;
+  background: var(--color-oasis);
+  color: var(--color-night);
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -48,7 +85,7 @@ body {
   width: 6px;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #2e3346;
+  background: var(--color-night-line);
   border-radius: 9999px;
 }
 
