@@ -9,6 +9,8 @@ import { RecommendationCards } from "@/components/RecommendationCards";
 import { DNAPanel } from "@/components/DNAPanel";
 import { FeedbackSection } from "@/components/FeedbackSection";
 import { TripContextWidget } from "@/components/TripContextWidget";
+import { AccessibilityInput } from "@/components/AccessibilityInput";
+import { Button } from "@/components/ui/Button";
 
 // Single-page layout. Every section is an independent, context-driven
 // component so it can be restyled or repositioned freely without touching
@@ -16,7 +18,7 @@ import { TripContextWidget } from "@/components/TripContextWidget";
 
 export default function HomePage() {
   const { t, lang } = useLang();
-  const { city } = useApp();
+  const { city, reset } = useApp();
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-8">
@@ -26,15 +28,32 @@ export default function HomePage() {
           <div>
             <span className="font-display text-lg text-ink block leading-none">{t("appName")}</span>
             <span className="text-[11px] text-ink-faint">
-              {lang === "ar" ? "رحلة لا تسألك عن نوع المسافر اللي فيك.. تتعلّمه." : "Rihla doesn't ask what kind of traveler you are. It learns it."}
+              {lang === "ar" ? "رحلة لا تسألك عن نوع المسافر اللي فيك — تتعلّمه." : "Rihla doesn't ask what kind of traveler you are. It learns it."}
             </span>
           </div>
         </div>
-        <LanguageToggle />
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            onClick={() => {
+              if (confirm(lang === "ar" ? "مسح الجلسة والبدء من جديد؟" : "Clear session and start over?")) {
+                reset();
+              }
+            }}
+            className="px-3 py-1.5 text-xs"
+          >
+            {lang === "ar" ? "🔄 ابدأ من جديد" : "🔄 Start over"}
+          </Button>
+          <LanguageToggle />
+        </div>
       </header>
 
       <div className="mb-6">
         <TripContextWidget city={city} />
+      </div>
+
+      <div className="mb-6">
+        <AccessibilityInput />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
