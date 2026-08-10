@@ -13,6 +13,7 @@ import { TripContextWidget } from "@/components/TripContextWidget";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { IntroSplash } from "@/components/IntroSplash";
+import { AutoLocateCity } from "@/components/AutoLocateCity";
 
 // Single-page layout. Every section is an independent, context-driven
 // component so it can be restyled or repositioned freely without touching
@@ -25,6 +26,7 @@ export default function HomePage() {
 
   return (
     <>
+      <AutoLocateCity />
       {showIntro && <IntroSplash onDone={() => setShowIntro(false)} />}
       <main className="mx-auto max-w-6xl px-6 py-8">
       <header className="flex items-center justify-between mb-6">
