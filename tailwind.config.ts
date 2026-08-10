@@ -6,26 +6,26 @@ const config: Config = {
     extend: {
       colors: {
         night: {
-          DEFAULT: "#12141C",
-          panel: "#1B1E2B",
-          soft: "#232739",
-          line: "#2E3346",
+          DEFAULT: "var(--color-night)",
+          panel: "var(--color-night-panel)",
+          soft: "var(--color-night-soft)",
+          line: "var(--color-night-line)",
         },
         sand: {
-          DEFAULT: "#D4A24C",
-          bright: "#E6BB6C",
-          dim: "#8A6B3A",
+          DEFAULT: "var(--color-sand)",
+          bright: "var(--color-sand-bright)",
+          dim: "var(--color-sand-dim)",
         },
         oasis: {
-          DEFAULT: "#2FB8A6",
-          bright: "#4FDCC8",
-          dim: "#1F7A6E",
+          DEFAULT: "var(--color-oasis)",
+          bright: "var(--color-oasis-bright)",
+          dim: "var(--color-oasis-dim)",
         },
-        clay: "#C9714A",
+        clay: "var(--color-clay)",
         ink: {
-          DEFAULT: "#F2EFE9",
-          muted: "#9BA0B4",
-          faint: "#5C6178",
+          DEFAULT: "var(--color-ink)",
+          muted: "var(--color-ink-muted)",
+          faint: "var(--color-ink-faint)",
         },
       },
       fontFamily: {
@@ -35,8 +35,8 @@ const config: Config = {
         arabic: ["var(--font-arabic)", "sans-serif"],
       },
       backgroundImage: {
-        "helix-glow": "radial-gradient(circle at 50% 0%, rgba(47,184,166,0.16), transparent 60%)",
-        "sand-glow": "radial-gradient(circle at 80% 20%, rgba(212,162,76,0.14), transparent 55%)",
+        "helix-glow": "radial-gradient(circle at 50% 0%, rgba(168,112,58,0.16), transparent 60%)",
+        "sand-glow": "radial-gradient(circle at 80% 20%, rgba(201,162,39,0.14), transparent 55%)",
       },
       borderRadius: {
         xl2: "1.25rem",
