@@ -26,6 +26,7 @@ interface AppState {
   dna: TravelDNA;
   messages: ChatMessage[];
   city: string;
+  cityManuallySet: boolean;
   recommendations: RecommendedPlace[];
   selectedPlaceId: string | null;
   userLocation: LatLng | null;
@@ -48,6 +49,7 @@ interface AppContextValue extends AppState {
   setLastIntent: (intent: LastIntent | null) => void;
   markPlaceRated: (placeId: string) => void;
   setMobilityNeeds: (needs: string) => void;
+  setCity: (city: string, manual?: boolean) => void;
   reset: () => void;
 }
 
@@ -57,6 +59,7 @@ const emptyState: AppState = {
   dna: DEFAULT_DNA,
   messages: [],
   city: "Riyadh",
+  cityManuallySet: false,
   recommendations: [],
   selectedPlaceId: null,
   userLocation: null,
@@ -130,8 +133,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setState((s) => (s.ratedPlaceIds.includes(placeId) ? s : { ...s, ratedPlaceIds: [...s.ratedPlaceIds, placeId] })),
     []
   );
-  
+
   const setMobilityNeeds = useCallback((needs: string) => setState((s) => ({ ...s, mobilityNeeds: needs })), []);
+
+  // `manual` = the user explicitly asked for this city (chat mention).
+  // Manual picks stick — auto-detected (geolocation) city never overrides
+  // a manual one; see components/AutoLocateCity.tsx.
+  const setCity = useCallback(
+    (city: string, manual = false) =>
+      setState((s) => (manual ? { ...s, city, cityManuallySet: true } : s.cityManuallySet ? s : { ...s, city })),
+    []
+  );
+
   const nudgeDNA = useCallback((signals: DNASignals, reason: string) => {
     let changeLog: DNAChangeLogEntry[] = [];
     setState((s) => {
@@ -149,7 +162,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AppContext.Provider
-      value={{ ...state, setDNA, addMessage, setRecommendations, appendRecommendations, selectPlace, setUserLocation, setDirections, nudgeDNA, setLastIntent, markPlaceRated, setMobilityNeeds, reset }}
+      value={{ ...state, setDNA, addMessage, setRecommendations, appendRecommendations, selectPlace, setUserLocation, setDirections, nudgeDNA, setLastIntent, markPlaceRated, setMobilityNeeds, setCity, reset }}
     >
       {children}
     </AppContext.Provider>
