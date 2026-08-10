@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
 import { AppProvider } from "@/lib/store";
+import { ThemeProvider } from "@/lib/theme";
 
 export const metadata: Metadata = {
   title: "Rihla AI Tourism Assistant",
@@ -20,9 +21,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-night bg-helix-glow bg-sand-glow">
-        <LangProvider>
-          <AppProvider>{children}</AppProvider>
-        </LangProvider>
+        <ThemeProvider>
+          <LangProvider>
+            <AppProvider>{children}</AppProvider>
+          </LangProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
