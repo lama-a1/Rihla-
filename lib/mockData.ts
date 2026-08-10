@@ -175,26 +175,40 @@ export function scorePlaceForDNA(place: PlaceSeed, dna: TravelDNA, filters: Inte
   return score;
 }
 
-function reasonForPlace(place: PlaceSeed, dna: TravelDNA, filters: IntentFilters, lang: "en" | "ar" = "en", mobilityNeeds = ""): string {
+function reasonForPlace(
+  place: PlaceSeed,
+  dna: TravelDNA,
+  filters: IntentFilters,
+  mobilityNeeds = ""
+): { en: string; ar: string } {
   if (isLimitedMobility(mobilityNeeds) && place.walkingLevel === "low") {
-    return lang === "ar" ? "مشي قليل — يناسب احتياجات الحركة اللي ذكرتها." : "Low walking required — fits the mobility needs you noted.";
+    return {
+      en: "Low walking required — fits the mobility needs you noted.",
+      ar: "مشي قليل — يناسب احتياجات الحركة اللي ذكرتها.",
+    };
   }
-  if (lang === "ar") {
-    if (filters.quiet && place.crowdLevel === "low") return "مكان هادئ يناسب اللي طلبته.";
-    if (filters.indoor && place.indoorOutdoor === "indoor") return "مكان مغلق، حسب طلبك.";
-    if (filters.cheap && place.costSAR === 0) return "مجاني — يناسب الميزانية المحدودة.";
-    if (place.category === "history" && dna.history >= 60) return "يناسب اهتمامك المتزايد بالتاريخ.";
-    if (place.category === "photography" && dna.photography >= 60) return "فرصة تصوير رائعة، حسب حمضك النووي للسفر حاليًا.";
-    if (place.crowdLevel === "low" && dna.crowdTolerance < 45) return "ازدحام قليل — يناسب تفضيلك حاليًا.";
-    return "يطابق حمضك النووي للسفر الحالي بشكل جيد.";
+  if (filters.quiet && place.crowdLevel === "low") {
+    return { en: "A quiet spot that matches what you asked for.", ar: "مكان هادئ يناسب اللي طلبته." };
   }
-  if (filters.quiet && place.crowdLevel === "low") return "A quiet spot that matches what you asked for.";
-  if (filters.indoor && place.indoorOutdoor === "indoor") return "Indoors, as requested.";
-  if (filters.cheap && place.costSAR === 0) return "Free — fits a tighter budget.";
-  if (place.category === "history" && dna.history >= 60) return "Matches your growing interest in history.";
-  if (place.category === "photography" && dna.photography >= 60) return "Great photo opportunity, based on your DNA so far.";
-  if (place.crowdLevel === "low" && dna.crowdTolerance < 45) return "Low crowds — fits your preference so far.";
-  return "A solid match for your current Travel DNA.";
+  if (filters.indoor && place.indoorOutdoor === "indoor") {
+    return { en: "Indoors, as requested.", ar: "مكان مغلق، حسب طلبك." };
+  }
+  if (filters.cheap && place.costSAR === 0) {
+    return { en: "Free — fits a tighter budget.", ar: "مجاني — يناسب الميزانية المحدودة." };
+  }
+  if (place.category === "history" && dna.history >= 60) {
+    return { en: "Matches your growing interest in history.", ar: "يناسب اهتمامك المتزايد بالتاريخ." };
+  }
+  if (place.category === "photography" && dna.photography >= 60) {
+    return {
+      en: "Great photo opportunity, based on your DNA so far.",
+      ar: "فرصة تصوير رائعة، حسب حمضك النووي للسفر حاليًا.",
+    };
+  }
+  if (place.crowdLevel === "low" && dna.crowdTolerance < 45) {
+    return { en: "Low crowds — fits your preference so far.", ar: "ازدحام قليل — يناسب تفضيلك حاليًا." };
+  }
+  return { en: "A solid match for your current Travel DNA.", ar: "يطابق حمضك النووي للسفر الحالي بشكل جيد." };
 }
 
 /**
@@ -209,39 +223,35 @@ export function searchMockPlaces(
   filters: IntentFilters,
   excludeNames: string[] = [],
   limit = 5,
-  lang: "en" | "ar" = "en"
+  mobilityNeeds = ""
 ): RecommendedPlace[] {
   const pool = (PLACES[city] ?? PLACES.Riyadh).filter((p) => !excludeNames.includes(p.name));
   const scoped = category && category !== "general" ? pool.filter((p) => p.category === category) : pool;
   const candidates = scoped.length > 0 ? scoped : pool;
 
   return candidates
-    .map((p) => ({ p, score: scorePlaceForDNA(p, dna, filters) }))
+    .map((p) => ({ p, score: scorePlaceForDNA(p, dna, filters, mobilityNeeds) }))
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
-    .map(({ p }) => placeToRecommendation(p, dna, filters, lang));
+    .map(({ p }) => placeToRecommendation(p, dna, filters, mobilityNeeds));
 }
-
-function placeToRecommendation(
-  p: PlaceSeed,
-  dna: TravelDNA,
-  filters: IntentFilters,
-  lang: "en" | "ar" = "en",
-  mobilityNeeds = ""
-): RecommendedPlace {
+function placeToRecommendation(p: PlaceSeed, dna: TravelDNA, filters: IntentFilters, mobilityNeeds = ""): RecommendedPlace {
+  const reason = reasonForPlace(p, dna, filters, mobilityNeeds);
   return {
     id: p.name.replace(/\s+/g, "-").toLowerCase(),
     name: p.name,
     nameAr: p.nameAr,
     category: p.category,
-    reason: reasonForPlace(p, dna, filters, lang, mobilityNeeds),
+    reason: reason.en,
+    reasonAr: reason.ar,
     lat: p.lat,
     lng: p.lng,
     costSAR: p.costSAR,
     crowdLevel: p.crowdLevel,
     walkingLevel: p.walkingLevel,
     indoorOutdoor: p.indoorOutdoor,
-    accessibilityInfo: lang === "ar" ? p.accessibilityInfoAr : p.accessibilityInfo,
+    accessibilityInfo: p.accessibilityInfo,
+    accessibilityInfoAr: p.accessibilityInfoAr,
     mapQuery: p.mapQuery,
     source: "mock",
   };
