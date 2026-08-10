@@ -32,6 +32,8 @@ export function RecommendationCard({
 }) {
   const { t, lang } = useLang();
   const name = lang === "ar" && place.nameAr ? place.nameAr : place.name;
+  const reason = lang === "ar" && place.reasonAr ? place.reasonAr : place.reason;
+  const accessibilityInfo = lang === "ar" && place.accessibilityInfoAr ? place.accessibilityInfoAr : place.accessibilityInfo;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapQuery)}`;
 
   return (
@@ -57,7 +59,7 @@ export function RecommendationCard({
           </span>
         </div>
       </div>
-      <p className="text-xs text-ink-muted leading-relaxed mb-3">{place.reason}</p>
+      <p className="text-xs text-ink-muted leading-relaxed mb-3">{reason}</p>
 
 <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-ink-faint mb-3">
         {place.crowdLevel && <span>{t("crowd")}: {t(place.crowdLevel as any)}</span>}
@@ -67,12 +69,12 @@ export function RecommendationCard({
         )}
       </div>
 
-      {place.accessibilityInfo && (
+     {accessibilityInfo && (
         <div className="mb-3 flex items-start gap-1.5 text-[11px] text-ink-muted">
           <span className="shrink-0">♿️</span>
           <span>
             <span className="text-ink-faint">{t("accessibility")}: </span>
-            {place.accessibilityInfo}
+            {accessibilityInfo}
           </span>
         </div>
       )}
