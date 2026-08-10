@@ -4,7 +4,7 @@ import { LangProvider } from "@/lib/i18n";
 import { AppProvider } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "Rihla — AI Tourism Assistant",
+  title: "Rihla AI Tourism Assistant",
   description: "An AI travel companion that learns how you travel.",
 };
 
