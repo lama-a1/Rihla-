@@ -27,7 +27,7 @@ export default function HomePage() {
           <div>
             <span className="font-display text-lg text-ink block leading-none">{t("appName")}</span>
             <span className="text-[11px] text-ink-faint">
-              {lang === "ar" ? "رحلة لا تسألك عن نوع المسافر اللي فيك — تتعلّمه." : "Rihla doesn't ask what kind of traveler you are. It learns it."}
+              {lang === "ar" ? "رحلة لا تسألك عن نوع المسافر اللي فيك.. تتعلّمه." : "Rihla doesn't ask what kind of traveler you are.. It learns it."}
             </span>
           </div>
         </div>
