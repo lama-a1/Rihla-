@@ -30,7 +30,7 @@ export function IntroSplash({ onDone }: { onDone: () => void }) {
     >
       <img src="/logo.png" alt="Rihla" className="h-20 w-20 object-contain animate-rise" />
       <h1 className="font-display text-3xl text-ink">{lang === "ar" ? "رحلة" : "Rihla"}</h1>
-      <p className="text-sm text-ink-faint">{lang === "ar" ? "تتعلّم كيف تسافر." : "It learns how you travel."}</p>
+      <p className="text-sm text-ink-faint">{lang === "ar" ? "رحلة لا تسألك عن نوع المسافر اللي فيك.. تتعلّمه." : "Rihla doesn't ask what kind of traveler you are.. It learns it."}</p>
     </div>
   );
 }
