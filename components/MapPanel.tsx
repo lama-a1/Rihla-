@@ -63,7 +63,7 @@ export function MapPanel() {
   const effectiveLocation = userLocation ?? null;
 
   return (
-    <Card className="p-5 h-full flex flex-col">
+    <Card className="p-5 flex flex-col">
       <div className="flex items-center justify-between mb-1">
         <h2 className="font-display text-lg text-ink">{lang === "ar" ? "الخريطة" : "Map"}</h2>
         <Button variant="outline" onClick={useMyLocation} className="px-3 py-1.5 text-xs">
@@ -75,7 +75,7 @@ export function MapPanel() {
       </p>
 
       {recommendations.length === 0 ? (
-        <div className="flex-1 min-h-[220px] rounded-xl2 border border-dashed border-night-line bg-night-soft flex items-center justify-center text-center px-6">
+        <div className="h-64 sm:h-80 rounded-xl2 border border-dashed border-night-line bg-night-soft flex items-center justify-center text-center px-6">
           <p className="text-sm text-ink-faint">
             {lang === "ar" ? "اسأل رحلة عن مكان لتظهر النقاط هنا" : "Ask Rihla for a place to see pins here"}
           </p>
