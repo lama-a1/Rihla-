@@ -35,8 +35,8 @@ const config: Config = {
         arabic: ["var(--font-arabic)", "sans-serif"],
       },
       backgroundImage: {
-        "helix-glow": "radial-gradient(circle at 50% 0%, rgba(168,112,58,0.16), transparent 60%)",
-        "sand-glow": "radial-gradient(circle at 80% 20%, rgba(201,162,39,0.14), transparent 55%)",
+        "helix-glow": "radial-gradient(circle at 50% 0%, rgba(47,184,166,0.16), transparent 60%)",
+        "sand-glow": "radial-gradient(circle at 80% 20%, rgba(212,162,76,0.14), transparent 55%)",
       },
       borderRadius: {
         xl2: "1.25rem",
