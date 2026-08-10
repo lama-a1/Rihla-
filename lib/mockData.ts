@@ -270,6 +270,19 @@ export function haversineDistanceMeters(a: LatLng, b: LatLng): number {
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
 }
+/** Finds which of our supported cities is geographically closest to a point. */
+export function findNearestCity(point: LatLng): string {
+  let nearest = "Riyadh";
+  let minDist = Infinity;
+  for (const [city, center] of Object.entries(CITY_CENTERS)) {
+    const d = haversineDistanceMeters(point, center);
+    if (d < minDist) {
+      minDist = d;
+      nearest = city;
+    }
+  }
+  return nearest;
+}
 
 /**
  * Straight-line distance + a rough speed-based ETA. Real routes are longer
