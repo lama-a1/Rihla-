@@ -76,7 +76,7 @@ export interface RecommendedPlace {
   accessibilityInfo?: string;
   accessibilityInfoAr?: string;
   mapQuery: string;
-  source: "places" | "mock";
+  source: "places" | "mock" | "gemini";
 }
 
 // --- Directions -----------------------------------------------------
