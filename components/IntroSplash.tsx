@@ -28,7 +28,7 @@ export function IntroSplash({ onDone }: { onDone: () => void }) {
         fading ? "opacity-0" : "opacity-100"
       }`}
     >
-      <img src="/logo-icon.png" alt="Rihla" className="h-20 w-20 object-contain animate-rise" />
+      <img src="/logo.png" alt="Rihla" className="h-20 w-20 object-contain animate-rise" />
       <h1 className="font-display text-3xl text-ink">{lang === "ar" ? "رحلة" : "Rihla"}</h1>
       <p className="text-sm text-ink-faint">{lang === "ar" ? "تتعلّم كيف تسافر." : "It learns how you travel."}</p>
     </div>
