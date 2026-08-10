@@ -37,6 +37,25 @@ function translateCondition(condition: string, lang: "en" | "ar"): string {
   return CONDITION_AR[condition] ?? condition;
 }
 
+function conditionToEmoji(condition: string, tempC: number): string {
+  const map: Record<string, string> = {
+    Sunny: "☀️",
+    Clear: "☀️",
+    "Mostly clear": "🌤️",
+    "Partly cloudy": "⛅",
+    Cloudy: "☁️",
+    "Mild, cloudy": "☁️",
+    Humid: "💦",
+    Foggy: "🌫️",
+    Drizzle: "🌦️",
+    Rainy: "🌧️",
+    "Rain showers": "🌧️",
+    Snowy: "🌨️",
+    Thunderstorm: "⛈️",
+  };
+  if (map[condition]) return map[condition];
+  return tempC >= 38 ? "☀️" : tempC >= 25 ? "🌤️" : "⛅";
+}
 function toMinutes(hhmm: string) {
   const [h, m] = hhmm.split(":").map(Number);
   return h * 60 + m;
@@ -81,7 +100,7 @@ export function TripContextWidget({ city }: { city: string }) {
   return (
     <Card className="p-4 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between" dir={dir}>
       <div className="flex items-center gap-3">
-        <span className="text-2xl">{weather.tempC >= 38 ? "☀️" : weather.tempC >= 25 ? "🌤️" : "⛅"}</span>
+        <span className="text-2xl">{conditionToEmoji(weather.condition, weather.tempC)}</span>
         <div>
           <div className="text-ink text-sm font-medium">
             {weather.tempC}°C · {translateCondition(weather.condition, lang)}
