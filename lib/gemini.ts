@@ -3,7 +3,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 // Central place for all Gemini calls. Every route calls `generateJSON`, which
 // always returns parsed JSON or throws — callers are expected to catch and
 // fall back to lib/mockData.ts so the app never breaks during a demo.
-
+//
+// Model name is centralized here ONLY — nowhere else in the project
+// references a model string directly, so changing it here is sufficient.
 const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 export function isGeminiConfigured(): boolean {
@@ -33,8 +35,10 @@ export async function generateJSON<T>(params: {
     },
   });
 
+  console.log(`[gemini] Calling model "${MODEL}"...`);
   const result = await model.generateContent(params.prompt);
   const text = result.response.text();
   const cleaned = text.replace(/```json|```/g, "").trim();
+  console.log(`[gemini] SUCCESS — real Gemini (${MODEL}) response received.`);
   return JSON.parse(cleaned) as T;
 }
