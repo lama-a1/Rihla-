@@ -34,6 +34,12 @@ export function ChatPanel() {
       });
       const intent: IntentResult = await intentRes.json();
 
+      if (intent.noSearch) {
+        addMessage({ role: "assistant", text: intent.replyText });
+        setSending(false);
+        return;
+      }
+
       const changeLog = nudgeDNA(intent.dnaSignals, `Asked: "${text}"`);
       setLastIntent({ category: intent.category, filters: intent.filters });
 
