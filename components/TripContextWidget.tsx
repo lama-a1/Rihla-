@@ -21,6 +21,15 @@ const CONDITION_AR: Record<string, string> = {
   Humid: "رطب",
   Clear: "صافٍ",
   "Mild, cloudy": "معتدل وغائم",
+  "Mostly clear": "صافٍ في الغالب",
+  "Partly cloudy": "غائم جزئيًا",
+  Cloudy: "غائم",
+  Foggy: "ضبابي",
+  Drizzle: "رذاذ",
+  Rainy: "ممطر",
+  Snowy: "ثلجي",
+  "Rain showers": "زخات مطر",
+  Thunderstorm: "عاصفة رعدية",
 };
 
 function translateCondition(condition: string, lang: "en" | "ar"): string {
