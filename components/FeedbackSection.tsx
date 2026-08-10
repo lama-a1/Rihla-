@@ -136,7 +136,7 @@ export function FeedbackSection() {
 
       {alreadyRated ? (
         <p className="text-sm text-oasis-bright text-center py-4">
-          {lang === "ar" ? "قيّمت هذا المكان قبل كذا — جرّب اطلب مكان ثاني." : "You already rated this place — ask for another one."}
+          {lang === "ar" ? "قيّمت هذا المكان قبل كذا — جرّب طلب مكان آخر." : "You already rated this place — ask for another one."}
         </p>
       ) : (
         <>
