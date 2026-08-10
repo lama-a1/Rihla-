@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 // always returns parsed JSON or throws — callers are expected to catch and
 // fall back to lib/mockData.ts so the app never breaks during a demo.
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 export function isGeminiConfigured(): boolean {
   return Boolean(process.env.GEMINI_API_KEY);
