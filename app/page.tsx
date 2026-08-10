@@ -9,7 +9,6 @@ import { RecommendationCards } from "@/components/RecommendationCards";
 import { DNAPanel } from "@/components/DNAPanel";
 import { FeedbackSection } from "@/components/FeedbackSection";
 import { TripContextWidget } from "@/components/TripContextWidget";
-import { AccessibilityInput } from "@/components/AccessibilityInput";
 import { Button } from "@/components/ui/Button";
 
 // Single-page layout. Every section is an independent, context-driven
@@ -52,9 +51,6 @@ export default function HomePage() {
         <TripContextWidget city={city} />
       </div>
 
-      <div className="mb-6">
-        <AccessibilityInput />
-      </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
