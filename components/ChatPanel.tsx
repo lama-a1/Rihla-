@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useApp } from "@/lib/store";
 import { useLang } from "@/lib/i18n";
 import { IntentResult, RecommendedPlace } from "@/lib/types";
+import { detectCityMention } from "@/lib/mockData";
 import { Card } from "./ui/Card";
 import { Button } from "./ui/Button";
 
@@ -14,7 +15,8 @@ import { Button } from "./ui/Button";
 //     -> recommendations rendered in RecommendationCards + as map pins
 
 export function ChatPanel() {
-  const { messages, addMessage, dna, city, nudgeDNA, setRecommendations, setLastIntent, recommendations } = useApp();
+  const { messages, addMessage, dna, city, nudgeDNA, setRecommendations, setLastIntent, recommendations, mobilityNeeds, setCity } =
+    useApp();
   const { lang } = useLang();
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
@@ -26,14 +28,23 @@ export function ChatPanel() {
     setDraft("");
     setSending(true);
 
+    // An explicitly named city (e.g. "somewhere in Jeddah") always overrides
+    // the auto-detected location, per lib/store.tsx#setCity's `manual` flag.
+    const mentionedCity = detectCityMention(text);
+    const effectiveCity = mentionedCity ?? city;
+    if (mentionedCity) setCity(mentionedCity, true);
+
     try {
       const intentRes = await fetch("/api/intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, dna, city, lang }),
+        body: JSON.stringify({ message: text, dna, city: effectiveCity, lang }),
       });
       const intent: IntentResult = await intentRes.json();
 
+      // Greetings / unsupported requests (e.g. "book a hotel") skip the
+      // places search entirely — Rihla replies honestly instead of
+      // returning unrelated tourist attractions as if it understood.
       if (intent.noSearch) {
         addMessage({ role: "assistant", text: intent.replyText });
         setSending(false);
@@ -47,12 +58,13 @@ export function ChatPanel() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          city,
+          city: effectiveCity,
           category: intent.category,
           filters: intent.filters,
           dna,
           excludeNames: recommendations.map((p) => p.name),
           lang,
+          mobilityNeeds,
         }),
       });
       const places: RecommendedPlace[] = await placesRes.json();
@@ -87,7 +99,7 @@ export function ChatPanel() {
       <div className="flex-1 overflow-y-auto scrollbar-thin space-y-3 mb-4 min-h-[160px]">
         {messages.length === 0 && (
           <p className="text-sm text-ink-faint italic">
-            {lang === "ar" ? "لا توجد رسائل بعد. جرّب تكتب طلبك." : "No messages yet. Try typing a request."}
+            {lang === "ar" ? "لا توجد رسائل بعد ، جرّب تكتب طلبك." : "No messages yet , try typing a request."}
           </p>
         )}
         {messages.map((m) => (
