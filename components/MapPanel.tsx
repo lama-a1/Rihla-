@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useApp } from "@/lib/store";
 import { useLang } from "@/lib/i18n";
-import { CITY_CENTERS, CITY_NAMES_AR } from "@/lib/mockData";
+import { CITY_CENTERS, CITY_NAMES_AR, findNearestCity } from "@/lib/mockData";
 import { Card } from "./ui/Card";
 import { Button } from "./ui/Button";
 
@@ -18,12 +18,19 @@ const GOOGLE_MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
 export function MapPanel() {
   const { lang, t } = useLang();
-  const { city, recommendations, selectedPlaceId, userLocation, directions, setUserLocation, selectPlace, setDirections } = useApp();
+  const { city, recommendations, selectedPlaceId, userLocation, directions, setUserLocation, selectPlace, setDirections, setCity } =
+    useApp();
 
   const useMyLocation = () => {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
-      (pos) => setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+      (pos) => {
+        const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        setUserLocation(loc);
+        // Default city = real location, unless the user has explicitly
+        // named a different city in chat (setCity respects that priority).
+        setCity(findNearestCity(loc));
+      },
       () => {
         // Permission denied or unavailable — fall back to the city center so
         // route/distance features still work in the demo.
@@ -96,7 +103,6 @@ export function MapPanel() {
           onSelect={(p) => selectPlace(p.id)}
         />
       )}
-
     </Card>
   );
 }
