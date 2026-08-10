@@ -10,6 +10,7 @@ import { DNAPanel } from "@/components/DNAPanel";
 import { FeedbackSection } from "@/components/FeedbackSection";
 import { TripContextWidget } from "@/components/TripContextWidget";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 // Single-page layout. Every section is an independent, context-driven
 // component so it can be restyled or repositioned freely without touching
@@ -43,6 +44,7 @@ export default function HomePage() {
           >
             {lang === "ar" ? "🔄 ابدأ من جديد" : "🔄 Start over"}
           </Button>
+          <ThemeToggle />
           <LanguageToggle />
         </div>
       </header>
