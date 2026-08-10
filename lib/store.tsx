@@ -33,6 +33,7 @@ interface AppState {
   lastDNAChange: DNAChangeLogEntry[] | null;
   lastIntent: LastIntent | null;
   ratedPlaceIds: string[];
+  mobilityNeeds: string;
 }
 
 interface AppContextValue extends AppState {
@@ -46,6 +47,7 @@ interface AppContextValue extends AppState {
   nudgeDNA: (signals: DNASignals, reason: string) => DNAChangeLogEntry[];
   setLastIntent: (intent: LastIntent | null) => void;
   markPlaceRated: (placeId: string) => void;
+  setMobilityNeeds: (needs: string) => void;
   reset: () => void;
 }
 
@@ -62,6 +64,7 @@ const emptyState: AppState = {
   lastDNAChange: null,
   lastIntent: null,
   ratedPlaceIds: [],
+  mobilityNeeds: "",
 };
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -127,7 +130,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setState((s) => (s.ratedPlaceIds.includes(placeId) ? s : { ...s, ratedPlaceIds: [...s.ratedPlaceIds, placeId] })),
     []
   );
-
+  
+  const setMobilityNeeds = useCallback((needs: string) => setState((s) => ({ ...s, mobilityNeeds: needs })), []);
   const nudgeDNA = useCallback((signals: DNASignals, reason: string) => {
     let changeLog: DNAChangeLogEntry[] = [];
     setState((s) => {
@@ -145,7 +149,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AppContext.Provider
-      value={{ ...state, setDNA, addMessage, setRecommendations, appendRecommendations, selectPlace, setUserLocation, setDirections, nudgeDNA, setLastIntent, markPlaceRated, reset }}
+      value={{ ...state, setDNA, addMessage, setRecommendations, appendRecommendations, selectPlace, setUserLocation, setDirections, nudgeDNA, setLastIntent, markPlaceRated, setMobilityNeeds, reset }}
     >
       {children}
     </AppContext.Provider>
