@@ -22,7 +22,7 @@
   --color-clay: #c9714a;
   --color-ink: #f2efe9;
   --color-ink-muted: #9ba0b4;
-  --color-ink-faint: #5c6178;
+  --color-ink-faint: #7a6f5c;
 }
 
 /* Light theme — toggled via data-theme="light" on <html>, see lib/theme.tsx */
