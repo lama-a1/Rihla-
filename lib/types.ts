@@ -51,6 +51,11 @@ export interface IntentResult {
   filters: IntentFilters;
   dnaSignals: DNASignals;
   replyText: string;
+  // true for greetings, small talk, or requests Rihla doesn't support
+  // (hotel/flight bookings, etc.) — signals the UI to skip searching for
+  // places and just show replyText, instead of returning generic results
+  // that don't match what the user actually asked for.
+  noSearch?: boolean;
 }
 
 // --- Places / recommendations ------------------------------------------
