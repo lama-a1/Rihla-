@@ -72,13 +72,35 @@ export function feedbackToDNASignals(type: FeedbackType, place?: RecommendedPlac
       return { walkingTolerance: -6, adventure: -3 };
     case "too_much_walking":
       return { walkingTolerance: -8 };
-    case "too_expensive":
+   case "too_expensive":
       return { budgetSensitivity: 8 };
+    case "great_for_photography":
+      return { photography: 6 };
+    case "quiet_and_relaxing":
+      return { quietPreference: 6 };
     default:
       return {};
   }
 }
 
+export function ratingToDNASignals(rating: number, place?: RecommendedPlace | null): DNASignals {
+  const categoryTrait = categoryToTrait(place?.category);
+  if (!categoryTrait) return {};
+
+  if (rating >= 4.5) return { [categoryTrait]: 8 };
+  if (rating >= 3.5) return { [categoryTrait]: 4 };
+  if (rating === 3) return {};
+  if (rating >= 2) return { [categoryTrait]: -4 };
+  return { [categoryTrait]: -8 };
+}
+
+export function mergeDNASignals(a: DNASignals, b: DNASignals): DNASignals {
+  const merged: DNASignals = { ...a };
+  (Object.keys(b) as (keyof TravelDNA)[]).forEach((key) => {
+    merged[key] = (merged[key] ?? 0) + (b[key] ?? 0);
+  });
+  return merged;
+}
 function categoryToTrait(category?: string): keyof TravelDNA | null {
   switch (category) {
     case "history":
