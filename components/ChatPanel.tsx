@@ -65,6 +65,7 @@ export function ChatPanel() {
           excludeNames: recommendations.map((p) => p.name),
           lang,
           mobilityNeeds,
+          count: intent.requestedCount,
         }),
       });
       const places: RecommendedPlace[] = await placesRes.json();
