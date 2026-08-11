@@ -56,6 +56,8 @@ export interface IntentResult {
   // places and just show replyText, instead of returning generic results
   // that don't match what the user actually asked for.
   noSearch?: boolean;
+  requestedCount?: number;
+}
 }
 
 // --- Places / recommendations ------------------------------------------
