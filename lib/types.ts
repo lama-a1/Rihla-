@@ -58,7 +58,6 @@ export interface IntentResult {
   noSearch?: boolean;
   requestedCount?: number;
 }
-
 // --- Places / recommendations ------------------------------------------
 
 export interface RecommendedPlace {
