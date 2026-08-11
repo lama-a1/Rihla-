@@ -121,7 +121,15 @@ export type FeedbackType =
   | "too_hot"
   | "too_tired"
   | "too_much_walking"
-  | "too_expensive";
+  | "too_expensive"
+  | "great_for_photography"
+  | "quiet_and_relaxing";
+
+export interface PlaceRating {
+  rating: number; // 0.5-5, in 0.5 steps
+  feedbackType?: FeedbackType;
+  timestamp: number;
+}
 
 export interface FeedbackEvent {
   id: string;
