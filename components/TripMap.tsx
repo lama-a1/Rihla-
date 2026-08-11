@@ -128,5 +128,5 @@ export function TripMap({
 
   if (places.length === 0) return null;
 
-  return <div ref={containerRef} className="h-64 sm:h-80 w-full rounded-xl2 overflow-hidden border border-night-line" />;
+  return <div ref={containerRef} className="h-80 sm:h-[28rem] w-full rounded-xl2 overflow-hidden border border-night-line" />;
 }
