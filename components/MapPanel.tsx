@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useApp } from "@/lib/store";
 import { useLang } from "@/lib/i18n";
@@ -21,21 +21,34 @@ export function MapPanel() {
   const { city, recommendations, selectedPlaceId, userLocation, directions, setUserLocation, selectPlace, setDirections, setCity } =
     useApp();
 
+  const [locationError, setLocationError] = useState<string | null>(null);
+
   const useMyLocation = () => {
-    if (!navigator.geolocation) return;
+    setLocationError(null);
+    if (!navigator.geolocation) {
+      setLocationError(
+        lang === "ar" ? "متصفحك لا يدعم تحديد الموقع." : "Your browser doesn't support location detection."
+      );
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         setUserLocation(loc);
-        // Default city = real location, unless the user has explicitly
-        // named a different city in chat (setCity respects that priority).
         setCity(findNearestCity(loc));
       },
-      () => {
-        // Permission denied or unavailable — fall back to the city center so
-        // route/distance features still work in the demo.
+      (err) => {
         const center = CITY_CENTERS[city] ?? CITY_CENTERS.Riyadh;
         setUserLocation(center);
+        const message =
+          err.code === err.PERMISSION_DENIED
+            ? lang === "ar"
+              ? "تم رفض إذن الموقع — فعّليه من إعدادات المتصفح وحاولي مرة أخرى."
+              : "Location permission was denied — enable it in your browser settings and try again."
+            : lang === "ar"
+            ? "تعذّر تحديد موقعك، استُخدم مركز المدينة بدلاً منه."
+            : "Couldn't determine your location — using the city center instead.";
+        setLocationError(message);
       },
       { timeout: 6000 }
     );
@@ -80,6 +93,7 @@ export function MapPanel() {
       <p className="text-xs text-ink-faint mb-4">
         {lang === "ar" ? `${CITY_NAMES_AR[city] ?? city}، السعودية` : `${city}, Saudi Arabia`}
       </p>
+        {locationError && <p className="text-xs text-clay -mt-2 mb-3">{locationError}</p>}
 
       {recommendations.length === 0 ? (
         <div className="h-64 sm:h-80 rounded-xl2 border border-dashed border-night-line bg-night-soft flex items-center justify-center text-center px-6">
