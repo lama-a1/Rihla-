@@ -10,14 +10,86 @@ interface Rule {
 }
 
 const RULES: Rule[] = [
-  { type: "too_crowded", keywords: ["crowded", "too many people", "busy", "مزدحم", "زحمة", "ازدحام"] },
-  { type: "too_hot", keywords: ["too hot", "hot", "heat", "حار", "سخون", "حرارة"] },
-  { type: "too_much_walking", keywords: ["too much walking", "too far", "long walk", "مشي كثير", "مشيت كثير", "بعيد"] },
-  { type: "too_tired", keywords: ["tired", "exhausted", "need rest", "تعبان", "تعب", "مرهق"] },
-  { type: "too_expensive", keywords: ["expensive", "too pricey", "costly", "غالي", "مكلف", "غاليه"] },
-  { type: "loved", keywords: ["loved it", "love it", "amazing", "beautiful", "great", "أحببته", "حلو", "رائع", "جميل"] },
-  { type: "okay", keywords: ["okay", "ok", "fine", "not bad", "مقبول", "عادي", "تمام"] },
+  {
+    type: "too_crowded",
+    keywords: ["crowded", "too many people", "busy", "مزدحم", "زحمة", "ازدحام", "المكان مزدحم"],
+  },
+  {
+    type: "too_hot",
+    keywords: ["too hot", "hot", "heat", "حار", "سخون", "حرارة", "حر", "الجو حار"],
+  },
+  {
+    type: "too_much_walking",
+    keywords: [
+      "too much walking",
+      "too far",
+      "long walk",
+      "مشي كثير",
+      "مشيت كثير",
+      "بعيد",
+      "المكان يحتاج مشي كثير",
+      "يحتاج مشي كثير",
+      "يتطلب مشي",
+      "مشيا كثيرا",
+    ],
+  },
+  {
+    type: "too_tired",
+    keywords: ["tired", "exhausted", "need rest", "تعبان", "تعب", "مرهق", "تعبت"],
+  },
+  {
+    type: "too_expensive",
+    keywords: ["expensive", "too pricey", "costly", "غالي", "مكلف", "غاليه", "المكان غالي", "السعر مرتفع"],
+  },
+  {
+    type: "great_for_photography",
+    keywords: [
+      "great for photos",
+      "great photography",
+      "photogenic",
+      "ممتاز للتصوير",
+      "التصوير فيه جميل",
+      "المكان ممتاز للتصوير",
+      "جيد للتصوير",
+    ],
+  },
+  {
+    type: "quiet_and_relaxing",
+    keywords: [
+      "quiet",
+      "relaxing",
+      "peaceful",
+      "هادئ",
+      "مريح",
+      "المكان هادئ",
+      "المكان مريح",
+      "هادئ ومريح",
+    ],
+  },
+  {
+    type: "loved",
+    keywords: [
+      "loved it",
+      "love it",
+      "amazing",
+      "beautiful",
+      "great",
+      "أحببته",
+      "حلو",
+      "رائع",
+      "جميل",
+      "أعجبني المكان",
+      "المكان جميل",
+    ],
+  },
+  { type: "okay", keywords: ["okay", "ok", "fine", "not bad", "مقبول", "عادي", "تمام", "كانت التجربة مقبولة"] },
 ];
+
+// Strips Arabic diacritics (tashkeel) so spec-style text with harakat (e.g.
+// "مشيًا") still matches plain spoken transcripts (which rarely include them).
+function stripDiacritics(text: string): string {
+  return text.replace(/[\u064B-\u0652]/g, "");
+}
 
 /**
  * Matches a spoken transcript to a feedback type, or null if nothing matched
@@ -25,10 +97,10 @@ const RULES: Rule[] = [
  * simple so it works offline with no extra AI call for the common case.
  */
 export function matchVoiceFeedback(transcript: string): FeedbackType | null {
-  const text = transcript.toLowerCase().trim();
+  const text = stripDiacritics(transcript.toLowerCase().trim());
   if (!text) return null;
   for (const rule of RULES) {
-    if (rule.keywords.some((k) => text.includes(k.toLowerCase()))) {
+    if (rule.keywords.some((k) => text.includes(stripDiacritics(k.toLowerCase())))) {
       return rule.type;
     }
   }
