@@ -96,8 +96,7 @@ export function MapPanel() {
         {locationError && <p className="text-xs text-clay -mt-2 mb-3">{locationError}</p>}
 
       {recommendations.length === 0 ? (
-        <div className="h-64 sm:h-80 rounded-xl2 border border-dashed border-night-line bg-night-soft flex items-center justify-center text-center px-6">
-          <p className="text-sm text-ink-faint">
+        <div className="h-80 sm:h-[28rem] rounded-xl2 border border-dashed border-night-line bg-night-soft flex items-center justify-center text-center px-6">
             {lang === "ar" ? "اسأل رحلة عن مكان لتظهر النقاط هنا" : "Ask Rihla for a place to see pins here"}
           </p>
         </div>
