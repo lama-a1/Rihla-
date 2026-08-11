@@ -62,24 +62,25 @@ export default function HomePage() {
 
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <ChatPanel />
-        </div>
-        <div>
-          <DNAPanel />
-        </div>
+          <div className="lg:col-span-3">
+            <MapPanel />
+          </div>
 
-        <div className="lg:col-span-2">
-          <MapPanel />
-        </div>
-        <div>
-          <RecommendationCards />
-        </div>
+          <div className="lg:col-span-2">
+            <ChatPanel />
+          </div>
+          <div>
+            <DNAPanel />
+          </div>
 
-        <div className="lg:col-span-3">
-          <FeedbackSection />
+          <div className="lg:col-span-3">
+            <RecommendationCards />
+          </div>
+
+          <div className="lg:col-span-3">
+            <FeedbackSection />
+          </div>
         </div>
-      </div>
     </main>
     </>
   );
