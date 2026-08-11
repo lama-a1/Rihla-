@@ -30,19 +30,44 @@ export interface PlaceSeed {
   quietAlternativeOf?: string; // name of the busier place this can replace
 }
 
-export const CITIES = ["Riyadh", "Jeddah", "AlUla", "Diriyah", "Abha", "Madinah", "Dammam", "Qassim", "Hail", "Taif"];
+export const CITIES = [
+  "Riyadh", "Jeddah", "Makkah", "AlUla", "Diriyah", "Abha", "Madinah", "Dammam", "Khobar", "Dhahran",
+  "Buraidah", "Unaizah", "AlRass", "Hail",
+  "Taif", "AlBaha", "Tabuk", "Najran", "Jazan", "Yanbu", "Jubail", "HafarAlBatin", "Arar", "Sakaka",
+  "Bisha", "AlKharj", "AlAhsa", "Qatif", "Rabigh", "KhamisMushait",
+];
 
 export const CITY_CENTERS: Record<string, LatLng> = {
   Riyadh: { lat: 24.7136, lng: 46.6753 },
   Jeddah: { lat: 21.5433, lng: 39.1728 },
+  Makkah: { lat: 21.3891, lng: 39.8579 },
   AlUla: { lat: 26.6094, lng: 37.9236 },
   Diriyah: { lat: 24.7386, lng: 46.575 },
   Abha: { lat: 18.2465, lng: 42.5117 },
   Madinah: { lat: 24.5247, lng: 39.5692 },
   Dammam: { lat: 26.4207, lng: 50.0888 },
-  Qassim: { lat: 26.326, lng: 43.975 },
+  Khobar: { lat: 26.2172, lng: 50.1971 },
+  Dhahran: { lat: 26.2361, lng: 50.0393 },
+  Buraidah: { lat: 26.326, lng: 43.975 },
+  Unaizah: { lat: 26.0975, lng: 43.9903 },
+  AlRass: { lat: 25.8697, lng: 43.5027 },
   Hail: { lat: 27.5114, lng: 41.7208 },
   Taif: { lat: 21.2703, lng: 40.4158 },
+  AlBaha: { lat: 20.0129, lng: 41.4677 },
+  Tabuk: { lat: 28.3998, lng: 36.5715 },
+  Najran: { lat: 17.4933, lng: 44.1277 },
+  Jazan: { lat: 16.8892, lng: 42.5611 },
+  Yanbu: { lat: 24.0895, lng: 38.0618 },
+  Jubail: { lat: 27.0046, lng: 49.6605 },
+  HafarAlBatin: { lat: 28.4342, lng: 45.9601 },
+  Arar: { lat: 30.9753, lng: 41.0381 },
+  Sakaka: { lat: 29.9697, lng: 40.2064 },
+  Bisha: { lat: 19.9842, lng: 42.6046 },
+  AlKharj: { lat: 24.1556, lng: 47.335 },
+  AlAhsa: { lat: 25.3838, lng: 49.5875 },
+  Qatif: { lat: 26.5205, lng: 50.0086 },
+  Rabigh: { lat: 22.7986, lng: 39.0327 },
+  KhamisMushait: { lat: 18.3, lng: 42.7297 },
 };
 
 export const PLACES: Record<string, PlaceSeed[]> = {
@@ -83,12 +108,28 @@ export const PLACES: Record<string, PlaceSeed[]> = {
     { name: "Al-Baqi Cemetery View", nameAr: "البقيع", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 30, mapQuery: "Al Baqi Madinah", lat: 24.47, lng: 39.6117, accessibilityInfo: "Flat, paved viewing area — wheelchair-accessible", accessibilityInfoAr: "منطقة مشاهدة مرصوفة ومستوية — مناسبة للكراسي المتحركة" },
   ],
   Dammam: [
-    { name: "Ithra (King Abdulaziz Center for World Culture)", nameAr: "إثراء (مركز الملك عبدالعزيز الثقافي العالمي)", category: "culture", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 30, durationMinutes: 150, mapQuery: "Ithra King Abdulaziz Center Dhahran", lat: 26.3049, lng: 50.1441, accessibilityInfo: "Fully wheelchair-accessible modern building with elevators and accessible restrooms", accessibilityInfoAr: "مبنى حديث مناسب بالكامل للكراسي المتحركة مع مصاعد ودورات مياه مخصصة" },
     { name: "Dammam Corniche", nameAr: "كورنيش الدمام", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Dammam Corniche", lat: 26.445, lng: 50.105, accessibilityInfo: "Paved waterfront promenade, wheelchair-accessible", accessibilityInfoAr: "ممشى ساحلي مرصوف، مناسب للكراسي المتحركة" },
+    { name: "King Fahd Park Dammam", nameAr: "منتزه الملك فهد بالدمام", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 90, mapQuery: "King Fahd Park Dammam", lat: 26.4367, lng: 50.1046, accessibilityInfo: "Paved family park paths, wheelchair-friendly", accessibilityInfoAr: "ممرات منتزه عائلي مرصوفة، مناسبة للكراسي المتحركة" },
   ],
-  Qassim: [
-    { name: "Unaizah Old Town", nameAr: "بلدة عنيزة القديمة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Unaizah Old Town Qassim", lat: 26.0975, lng: 43.9903, accessibilityInfo: "Uneven mudbrick alleys — limited wheelchair access in older sections", accessibilityInfoAr: "أزقة طينية غير مستوية — إمكانية وصول محدودة للكراسي المتحركة بالأقسام القديمة" },
-    { name: "Buraidah Central Souq", nameAr: "سوق بريدة المركزي", category: "shopping", crowdLevel: "medium", indoorOutdoor: "mixed", walkingLevel: "moderate", costSAR: 0, durationMinutes: 75, mapQuery: "Buraidah Central Souq Qassim", lat: 26.326, lng: 43.975, accessibilityInfo: "Mostly paved market lanes; some sections crowded and uneven", accessibilityInfoAr: "ممرات السوق مرصوفة غالبًا؛ بعض الأقسام مزدحمة وغير مستوية" },
+  Khobar: [
+    { name: "Half Moon Bay", nameAr: "شاطئ نصف القمر", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 120, mapQuery: "Half Moon Bay Khobar", lat: 26.1089, lng: 50.1739, accessibilityInfo: "Sandy beach with paved access points near parking — soft sand limits wheelchair range", accessibilityInfoAr: "شاطئ رملي بمداخل مرصوفة قرب مواقف السيارات — الرمل الناعم يحد من حركة الكراسي المتحركة" },
+    { name: "Khobar Corniche", nameAr: "كورنيش الخبر", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Khobar Corniche", lat: 26.2833, lng: 50.2, accessibilityInfo: "Paved waterfront walkway, wheelchair-accessible", accessibilityInfoAr: "ممشى ساحلي مرصوف، مناسب للكراسي المتحركة" },
+  ],
+  Dhahran: [
+    { name: "Ithra (King Abdulaziz Center for World Culture)", nameAr: "إثراء (مركز الملك عبدالعزيز الثقافي العالمي)", category: "culture", crowdLevel: "medium", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 30, durationMinutes: 150, mapQuery: "Ithra King Abdulaziz Center Dhahran", lat: 26.3049, lng: 50.1441, accessibilityInfo: "Fully wheelchair-accessible modern building with elevators and accessible restrooms", accessibilityInfoAr: "مبنى حديث مناسب بالكامل للكراسي المتحركة مع مصاعد ودورات مياه مخصصة" },
+    { name: "Dhahran Hills Park", nameAr: "منتزه تلال الظهران", category: "nature", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 60, mapQuery: "Dhahran Hills Park", lat: 26.2833, lng: 50.1167, accessibilityInfo: "Paved paths through landscaped hills; some sloped sections", accessibilityInfoAr: "ممرات مرصوفة عبر التلال المنسقة؛ بعض الأقسام منحدرة" },
+  ],
+  Buraidah: [
+    { name: "Buraidah Central Souq", nameAr: "سوق بريدة المركزي", category: "shopping", crowdLevel: "medium", indoorOutdoor: "mixed", walkingLevel: "moderate", costSAR: 0, durationMinutes: 75, mapQuery: "Buraidah Central Souq", lat: 26.326, lng: 43.975, accessibilityInfo: "Mostly paved market lanes; some sections crowded and uneven", accessibilityInfoAr: "ممرات السوق مرصوفة غالبًا؛ بعض الأقسام مزدحمة وغير مستوية" },
+    { name: "Prince Faisal bin Bandar Park", nameAr: "منتزه الأمير فيصل بن بندر", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 60, mapQuery: "Prince Faisal bin Bandar Park Buraidah", lat: 26.3407, lng: 43.9721, accessibilityInfo: "Paved family park paths, wheelchair-friendly", accessibilityInfoAr: "ممرات منتزه عائلي مرصوفة، مناسبة للكراسي المتحركة" },
+  ],
+  Unaizah: [
+    { name: "Unaizah Old Town", nameAr: "بلدة عنيزة القديمة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 90, mapQuery: "Unaizah Old Town", lat: 26.0975, lng: 43.9903, accessibilityInfo: "Uneven mudbrick alleys — limited wheelchair access in older sections", accessibilityInfoAr: "أزقة طينية غير مستوية — إمكانية وصول محدودة للكراسي المتحركة بالأقسام القديمة" },
+    { name: "Al Bassam Heritage House", nameAr: "بيت البسام التراثي", category: "history", crowdLevel: "low", indoorOutdoor: "indoor", walkingLevel: "low", costSAR: 10, durationMinutes: 45, mapQuery: "Al Bassam Heritage House Unaizah", lat: 26.0989, lng: 43.9925, accessibilityInfo: "Historic house museum — ground floor accessible, upper floors stairs only", accessibilityInfoAr: "بيت تراثي متحول لمتحف — الطابق الأرضي يمكن الوصول إليه، الطوابق العلوية بسلالم فقط" },
+  ],
+  AlRass: [
+    { name: "Al-Rass Palm Oasis", nameAr: "واحة نخيل الرس", category: "nature", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 60, mapQuery: "Al-Rass Palm Oasis", lat: 25.8697, lng: 43.5027, accessibilityInfo: "Unpaved agricultural paths through the oasis — limited wheelchair access", accessibilityInfoAr: "ممرات زراعية غير مرصوفة داخل الواحة — إمكانية وصول محدودة للكراسي المتحركة" },
+    { name: "Al-Rass Historic Souq", nameAr: "سوق الرس التاريخي", category: "shopping", crowdLevel: "low", indoorOutdoor: "mixed", walkingLevel: "moderate", costSAR: 0, durationMinutes: 60, mapQuery: "Al-Rass Historic Souq", lat: 25.8672, lng: 43.4986, accessibilityInfo: "Mostly paved market lanes; some older sections uneven", accessibilityInfoAr: "ممرات السوق مرصوفة غالبًا؛ بعض الأقسام القديمة غير مستوية" },
   ],
   Hail: [
     { name: "Al Qishlah Palace", nameAr: "قصر القشلة", category: "history", crowdLevel: "low", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 0, durationMinutes: 60, mapQuery: "Al Qishlah Palace Hail", lat: 27.5219, lng: 41.6907, accessibilityInfo: "Historic fort with uneven stone terrain — limited wheelchair access", accessibilityInfoAr: "قلعة تاريخية بأرضية حجرية غير مستوية — إمكانية وصول محدودة للكراسي المتحركة" },
@@ -97,6 +138,10 @@ export const PLACES: Record<string, PlaceSeed[]> = {
   Taif: [
     { name: "Al Rudaf Park", nameAr: "منتزه الرداف", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "low", costSAR: 0, durationMinutes: 90, mapQuery: "Al Rudaf Park Taif", lat: 21.2854, lng: 40.4239, accessibilityInfo: "Paved walking paths and family areas, wheelchair-friendly", accessibilityInfoAr: "ممرات مشي مرصوفة ومناطق عائلية، مناسبة للكراسي المتحركة" },
     { name: "Al-Shafa Mountain Viewpoint", nameAr: "جبل الشفا", category: "photography", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 0, durationMinutes: 120, mapQuery: "Al-Shafa Mountain Taif", lat: 21.05, lng: 40.2833, accessibilityInfo: "Mountain terrain with uneven, unpaved viewpoints — not wheelchair accessible", accessibilityInfoAr: "أرض جبلية غير مستوية وغير مرصوفة عند نقاط المشاهدة — غير مناسبة للكراسي المتحركة" },
+  ],
+  AlBaha: [
+    { name: "Raghadan Forest Park", nameAr: "متنزه رغدان", category: "nature", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "moderate", costSAR: 10, durationMinutes: 120, mapQuery: "Raghadan Forest Park Al Baha", lat: 20.0089, lng: 41.4436, accessibilityInfo: "Paved main paths through the forest; some viewpoints require walking on uneven ground", accessibilityInfoAr: "ممرات رئيسية مرصوفة داخل الغابة؛ بعض نقاط المشاهدة تتطلب مشي على أرض غير مستوية" },
+    { name: "Dhee Ayn Marble Village", nameAr: "قرية ذي عين", category: "history", crowdLevel: "medium", indoorOutdoor: "outdoor", walkingLevel: "high", costSAR: 0, durationMinutes: 90, mapQuery: "Dhee Ayn Village Al Baha", lat: 19.9736, lng: 41.6242, accessibilityInfo: "Historic hillside village built on marble rock with steep, uneven paths — not wheelchair accessible", accessibilityInfoAr: "قرية تاريخية مبنية على صخر رخامي بمسارات شديدة الانحدار وغير مستوية — غير مناسبة للكراسي المتحركة" },
   ],
 };
 
@@ -115,24 +160,50 @@ export function getWeatherMock(city: string): WeatherInfo {
 export const CITY_NAMES_AR: Record<string, string> = {
   Riyadh: "الرياض",
   Jeddah: "جدة",
+  Makkah: "مكة المكرمة",
   AlUla: "العلا",
   Diriyah: "الدرعية",
   Abha: "أبها",
   Madinah: "المدينة المنورة",
   Dammam: "الدمام",
-  Qassim: "القصيم",
+  Khobar: "الخبر",
+  Dhahran: "الظهران",
+  Buraidah: "بريدة",
+  Unaizah: "عنيزة",
+  AlRass: "الرس",
   Hail: "حائل",
   Taif: "الطائف",
+  AlBaha: "الباحة",
+  Tabuk: "تبوك",
+  Najran: "نجران",
+  Jazan: "جازان",
+  Yanbu: "ينبع",
+  Jubail: "الجبيل",
+  HafarAlBatin: "حفر الباطن",
+  Arar: "عرعر",
+  Sakaka: "سكاكا",
+  Bisha: "بيشة",
+  AlKharj: "الخرج",
+  AlAhsa: "الأحساء",
+  Qatif: "القطيف",
+  Rabigh: "رابغ",
+  KhamisMushait: "خميس مشيط",
 };
 
 // Keyword -> city, for detecting an explicit city mention in a chat message.
 // Explicit mentions always override the auto-detected (geolocation) city.
+// Only ONE spelling per hamza/taa-marbuta variant is needed — normalizeArabic
+// (below) already collapses common variations (ابها/أبها, حايل/حائل, etc.)
+// before matching, so a single canonical form covers casual typing too.
 const CITY_KEYWORDS: [string, string][] = [
   ["riyadh", "Riyadh"],
   ["الرياض", "Riyadh"],
   ["jeddah", "Jeddah"],
   ["jedda", "Jeddah"],
   ["جدة", "Jeddah"],
+  ["makkah", "Makkah"],
+  ["mecca", "Makkah"],
+  ["مكة", "Makkah"],
   ["alula", "AlUla"],
   ["al-ula", "AlUla"],
   ["العلا", "AlUla"],
@@ -145,30 +216,84 @@ const CITY_KEYWORDS: [string, string][] = [
   ["المدينة المنورة", "Madinah"],
   ["المدينة", "Madinah"],
   ["dammam", "Dammam"],
-  ["khobar", "Dammam"],
-  ["dhahran", "Dammam"],
   ["الدمام", "Dammam"],
-  ["الخبر", "Dammam"],
-  ["الظهران", "Dammam"],
-  ["qassim", "Qassim"],
-  ["qaseem", "Qassim"],
-  ["buraidah", "Qassim"],
-  ["buraydah", "Qassim"],
-  ["unaizah", "Qassim"],
-  ["القصيم", "Qassim"],
-  ["بريدة", "Qassim"],
-  ["عنيزة", "Qassim"],
+  ["khobar", "Khobar"],
+  ["الخبر", "Khobar"],
+  ["dhahran", "Dhahran"],
+  ["الظهران", "Dhahran"],
+  ["qassim", "Buraidah"],
+  ["qaseem", "Buraidah"],
+  ["buraidah", "Buraidah"],
+  ["buraydah", "Buraidah"],
+  ["القصيم", "Buraidah"],
+  ["بريدة", "Buraidah"],
+  ["unaizah", "Unaizah"],
+  ["عنيزة", "Unaizah"],
+  ["al-rass", "AlRass"],
+  ["al rass", "AlRass"],
+  ["alrass", "AlRass"],
+  ["الرس", "AlRass"],
   ["hail", "Hail"],
   ["حائل", "Hail"],
   ["taif", "Taif"],
   ["الطائف", "Taif"],
+  ["al baha", "AlBaha"],
+  ["al-baha", "AlBaha"],
+  ["albaha", "AlBaha"],
+  ["الباحة", "AlBaha"],
+  ["tabuk", "Tabuk"],
+  ["تبوك", "Tabuk"],
+  ["najran", "Najran"],
+  ["نجران", "Najran"],
+  ["jazan", "Jazan"],
+  ["jizan", "Jazan"],
+  ["جازان", "Jazan"],
+  ["جيزان", "Jazan"],
+  ["yanbu", "Yanbu"],
+  ["ينبع", "Yanbu"],
+  ["jubail", "Jubail"],
+  ["الجبيل", "Jubail"],
+  ["hafar al-batin", "HafarAlBatin"],
+  ["hafar al batin", "HafarAlBatin"],
+  ["حفر الباطن", "HafarAlBatin"],
+  ["arar", "Arar"],
+  ["عرعر", "Arar"],
+  ["sakaka", "Sakaka"],
+  ["al jouf", "Sakaka"],
+  ["aljouf", "Sakaka"],
+  ["سكاكا", "Sakaka"],
+  ["الجوف", "Sakaka"],
+  ["bisha", "Bisha"],
+  ["بيشة", "Bisha"],
+  ["al kharj", "AlKharj"],
+  ["alkharj", "AlKharj"],
+  ["الخرج", "AlKharj"],
+  ["al ahsa", "AlAhsa"],
+  ["alahsa", "AlAhsa"],
+  ["hofuf", "AlAhsa"],
+  ["الأحساء", "AlAhsa"],
+  ["الاحساء", "AlAhsa"],
+  ["هفوف", "AlAhsa"],
+  ["qatif", "Qatif"],
+  ["القطيف", "Qatif"],
+  ["rabigh", "Rabigh"],
+  ["رابغ", "Rabigh"],
+  ["khamis mushait", "KhamisMushait"],
+  ["khamis mushayt", "KhamisMushait"],
+  ["خميس مشيط", "KhamisMushait"],
 ];
+
+/** Normalizes common Arabic spelling variations (hamza forms, taa marbuta,
+ * alef maksura) so casual typing like "ابها" still matches "أبها". */
+function normalizeArabic(text: string): string {
+  return text.replace(/[إأآ]/g, "ا").replace(/[ئؤ]/g, "ي").replace(/ة/g, "ه").replace(/ى/g, "ي");
+}
 
 /** Scans free text for an explicit mention of one of our supported cities. */
 export function detectCityMention(text: string): string | null {
-  const lower = text.toLowerCase();
+  const lower = normalizeArabic(text.toLowerCase());
   for (const [keyword, city] of CITY_KEYWORDS) {
-    if (lower.includes(keyword)) return city;
+    if (lower.includes(normalizeArabic(keyword))) return city;
   }
   return null;
 }
@@ -179,6 +304,11 @@ export function getPrayerTimesMock(): PrayerTimes {
 
 // --- DNA-aware place scoring (Places API fallback) -----------------------
 
+/**
+ * Scores how well a place fits the current Travel DNA + this request's
+ * filters. Higher is better. Used both to rank the mock Places fallback and
+ * as a plain-language basis for the `reason` shown on each recommendation.
+ */
 // Detects free-text mobility/accessibility needs that should heavily bias
 // place selection toward low-walking, indoor-friendly options — independent
 // of whatever the current chat message happens to mention.
