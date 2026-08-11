@@ -163,7 +163,7 @@ export function GoogleMapView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiKey, JSON.stringify(places.map((p) => [p.id, p.lat, p.lng])), selectedPlaceId, JSON.stringify(userLocation), lang]);
 
-  return <div ref={containerRef} className="h-64 sm:h-80 w-full rounded-xl2 overflow-hidden border border-night-line" />;
+ return <div ref={containerRef} className="h-80 sm:h-[28rem] w-full rounded-xl2 overflow-hidden border border-night-line" />;
 }
 
 // A muted dark theme so the real Google map matches the rest of the UI.
