@@ -26,39 +26,35 @@ function BackgroundArt() {
       style={{ color: "var(--color-sand)" }}
     >
       {/* rolling dunes */}
+      <path d="M0,300 Q80,235 160,255 T320,250 T480,265 T640,240 T800,260 L800,300 Z" fill="currentColor" />
+      <path d="M0,300 Q100,270 220,285 T440,280 T660,290 T800,278 L800,300 Z" fill="currentColor" opacity="0.6" />
+
+      {/* AlUla-style rock arch */}
       <path
-        d="M0,300 Q80,235 160,255 T320,250 T480,265 T640,240 T800,260 L800,300 Z"
+        d="M110,260 C108,195 138,148 180,148 C222,148 252,195 250,260 L232,260 C232,208 212,170 180,170 C148,170 128,208 128,260 Z"
         fill="currentColor"
-      />
-      <path
-        d="M0,300 Q100,270 220,285 T440,280 T660,290 T800,278 L800,300 Z"
-        fill="currentColor"
-        opacity="0.6"
       />
 
-      {/* rock arch, evoking AlUla's Elephant Rock */}
-      <path
-        d="M120,260 C118,190 150,140 195,140 C240,140 272,190 270,260 L250,260 C250,205 228,165 195,165 C162,165 140,205 140,260 Z"
-        fill="currentColor"
-      />
+      {/* Najdi mud-brick tower, with its signature triangular parapet
+          (seen throughout Diriyah / At-Turaif) */}
+      <g>
+        <rect x="430" y="150" width="90" height="110" fill="currentColor" />
+        <path
+          d="M430,150 L441,132 L452,150 L463,132 L474,150 L485,132 L496,150 L507,132 L519,150 Z"
+          fill="currentColor"
+        />
+        <rect x="455" y="190" width="14" height="20" fill="var(--color-night)" opacity="0.5" />
+        <rect x="480" y="190" width="14" height="20" fill="var(--color-night)" opacity="0.5" />
+      </g>
 
       {/* palm tree */}
       <g>
-        <path d="M620,260 C616,220 622,185 632,160" fill="none" stroke="currentColor" strokeWidth="4" />
-        <path d="M632,160 C610,150 592,155 578,168" fill="none" stroke="currentColor" strokeWidth="3" />
-        <path d="M632,160 C616,142 596,138 580,144" fill="none" stroke="currentColor" strokeWidth="3" />
-        <path d="M632,160 C640,138 658,128 678,128" fill="none" stroke="currentColor" strokeWidth="3" />
-        <path d="M632,160 C648,144 668,140 686,148" fill="none" stroke="currentColor" strokeWidth="3" />
-        <path d="M632,160 C630,138 636,120 648,106" fill="none" stroke="currentColor" strokeWidth="3" />
-      </g>
-
-      {/* mosque dome + minaret */}
-      <g>
-        <rect x="420" y="240" width="70" height="20" fill="currentColor" />
-        <path d="M425,240 C425,210 485,210 485,240 Z" fill="currentColor" />
-        <circle cx="455" cy="205" r="4" fill="currentColor" />
-        <rect x="500" y="180" width="10" height="80" fill="currentColor" />
-        <path d="M497,180 L513,180 L505,164 Z" fill="currentColor" />
+        <path d="M640,260 C636,220 642,185 652,160" fill="none" stroke="currentColor" strokeWidth="4" />
+        <path d="M652,160 C630,150 612,155 598,168" fill="none" stroke="currentColor" strokeWidth="3" />
+        <path d="M652,160 C636,142 616,138 600,144" fill="none" stroke="currentColor" strokeWidth="3" />
+        <path d="M652,160 C660,138 678,128 698,128" fill="none" stroke="currentColor" strokeWidth="3" />
+        <path d="M652,160 C668,144 688,140 706,148" fill="none" stroke="currentColor" strokeWidth="3" />
+        <path d="M652,160 C650,138 656,120 668,106" fill="none" stroke="currentColor" strokeWidth="3" />
       </g>
 
       {/* scattered stars */}
