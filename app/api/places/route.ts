@@ -11,33 +11,28 @@ interface Body {
   excludeNames?: string[];
   lang?: "en" | "ar";
   mobilityNeeds?: string;
+  count?: number;
 }
 
-// Three-tier source, tried in order:
-//   1. Google Places (real, live) — used when GOOGLE_MAPS_SERVER_KEY is set.
-//   2. Gemini-suggested real places — used when Places isn't configured but
-//      Gemini is. Gemini draws on its general knowledge of real, well-known
-//      Saudi attractions (never invents fictional ones), with an explicit
-//      instruction not to fabricate coordinates it doesn't actually know.
-//      Marked source: "gemini" so the distinction from verified map data is
-//      never hidden.
-//   3. The hand-curated mock catalog in lib/mockData.ts — always available,
-//      guarantees the demo never breaks even with zero API keys configured.
-//
-// Every generated string we control (the "reason" text) is stored in BOTH
-// languages on the returned object (reason/reasonAr, accessibilityInfo/
-// accessibilityInfoAr) — mirroring name/nameAr — so the UI can switch
-// languages instantly without re-fetching.
-
 export async function POST(req: NextRequest) {
-  const { city, category, filters = {}, dna, excludeNames = [], lang = "en", mobilityNeeds = "" }: Body = await req.json();
+  const {
+    city,
+    category,
+    filters = {},
+    dna,
+    excludeNames = [],
+    lang = "en",
+    mobilityNeeds = "",
+    count = 4,
+  }: Body = await req.json();
+  const requestedCount = Math.max(1, Math.min(8, count));
   const serverKey = process.env.GOOGLE_MAPS_SERVER_KEY;
 
   if (serverKey) {
     try {
-      const places = await searchGooglePlaces(city, category, lang, serverKey);
+      const places = await searchGooglePlaces(city, category, lang, serverKey, requestedCount);
       if (places.length > 0) {
-        return NextResponse.json(rankByDNA(places, dna, filters, excludeNames, mobilityNeeds));
+        return NextResponse.json(rankByDNA(places, dna, filters, excludeNames, mobilityNeeds, requestedCount));
       }
     } catch (err) {
       console.error("[places] Google Places FAILED — falling back:", err);
@@ -46,9 +41,9 @@ export async function POST(req: NextRequest) {
 
   if (isGeminiConfigured()) {
     try {
-      const places = await searchGeminiPlaces(city, category, filters, dna, mobilityNeeds, excludeNames);
+      const places = await searchGeminiPlaces(city, category, filters, dna, mobilityNeeds, excludeNames, requestedCount);
       if (places.length > 0) {
-        console.log(`[places] Using Gemini-suggested real places for ${city}/${category ?? "general"}.`);
+        console.log(`[places] Using Gemini-suggested real places for ${city}/${category ?? "general"} (count: ${requestedCount}).`);
         return NextResponse.json(places);
       }
     } catch (err) {
@@ -56,7 +51,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const results = searchMockPlaces(city, category, dna, filters, excludeNames, 5, mobilityNeeds);
+  const results = searchMockPlaces(city, category, dna, filters, excludeNames, requestedCount, mobilityNeeds);
   return NextResponse.json(results);
 }
 
@@ -64,7 +59,8 @@ async function searchGooglePlaces(
   city: string,
   category: string | undefined,
   lang: "en" | "ar",
-  key: string
+  key: string,
+  count: number
 ): Promise<RecommendedPlace[]> {
   const query = category && category !== "general" ? `${category} attractions in ${city} Saudi Arabia` : `top attractions in ${city} Saudi Arabia`;
   const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(query)}&language=${lang}&key=${key}`;
@@ -75,7 +71,7 @@ async function searchGooglePlaces(
     throw new Error(`Places API status: ${data.status}`);
   }
 
-  return data.results.slice(0, 8).map(
+  return data.results.slice(0, Math.max(count, 8)).map(
     (r: any): RecommendedPlace => ({
       id: r.place_id,
       name: r.name,
@@ -91,11 +87,6 @@ async function searchGooglePlaces(
   );
 }
 
-// Asks Gemini to suggest REAL, currently-existing, well-known attractions —
-// not to invent anything — using its own general knowledge, since a live
-// Places lookup isn't available. Coordinates here are Gemini's best-effort
-// recollection, not verified map data, so this is only used when Google
-// Places itself isn't configured.
 interface GeminiPlaceSuggestion {
   name: string;
   nameAr?: string;
@@ -119,17 +110,20 @@ async function searchGeminiPlaces(
   filters: IntentFilters,
   dna: TravelDNA,
   mobilityNeeds: string,
-  excludeNames: string[]
+  excludeNames: string[],
+  count: number
 ): Promise<RecommendedPlace[]> {
   const result = await generateJSON<{ places: GeminiPlaceSuggestion[] }>({
     system:
-      "You are a knowledgeable Saudi tourism guide. Suggest 4 REAL, currently-existing, well-known " +
+      `You are a knowledgeable Saudi tourism guide. Suggest exactly ${count} REAL, currently-existing, well-known ` +
       "places to visit in the given Saudi city that match the requested category and the traveler's " +
       "Travel DNA. NEVER invent a fictional place — only suggest real attractions you're confident " +
       "actually exist. For coordinates, give your best genuine estimate of the real latitude/longitude " +
       "(you may know these from general geography) — do not guess wildly or use placeholder numbers. " +
       "If the traveler stated mobility/accessibility needs, prioritize places that would genuinely be " +
-      "easier to access and say so honestly in accessibilityInfo. Respond with ONLY valid JSON: " +
+      "easier to access and say so honestly in accessibilityInfo. IMPORTANT: name and nameAr must be SHORT " +
+      "— just the actual place name (a few words), never a sentence or description. " +
+      "Respond with ONLY valid JSON: " +
       "{ places: [{ name: string, nameAr: string, category: string, reasonEn: string, reasonAr: string, " +
       "lat: number, lng: number, costSAR: number, crowdLevel: 'low'|'medium'|'high', " +
       "walkingLevel: 'low'|'moderate'|'high', indoorOutdoor: 'indoor'|'outdoor'|'mixed', " +
@@ -141,13 +135,16 @@ async function searchGeminiPlaces(
       `Places to exclude (already shown): ${excludeNames.join(", ") || "none"}`,
   });
 
+  const looksLikeAName = (s: string | undefined) => Boolean(s) && s!.length <= 60 && s!.split(" ").length <= 8;
+
   return (result.places || [])
-    .filter((p) => !excludeNames.includes(p.name))
+    .filter((p) => !excludeNames.includes(p.name) && looksLikeAName(p.name) && p.reasonEn && p.reasonAr)
+    .slice(0, count)
     .map(
       (p): RecommendedPlace => ({
         id: p.name.replace(/\s+/g, "-").toLowerCase(),
         name: p.name,
-        nameAr: p.nameAr,
+        nameAr: looksLikeAName(p.nameAr) ? p.nameAr : undefined,
         category: p.category || category || "general",
         reason: p.reasonEn,
         reasonAr: p.reasonAr,
@@ -165,18 +162,13 @@ async function searchGeminiPlaces(
     );
 }
 
-// Even real Places results get re-ranked against the user's current Travel
-// DNA + this request's filters, so results feel personalized either way.
-// Google Places doesn't expose a walking-difficulty field, so stated
-// mobility needs can only nudge toward already-quieter/less busy spots here
-// (the mock catalog's per-place walkingLevel gives a much stronger signal —
-// see scorePlaceForDNA in lib/mockData.ts).
 function rankByDNA(
   places: RecommendedPlace[],
   dna: TravelDNA,
   filters: IntentFilters,
   excludeNames: string[],
-  mobilityNeeds: string
+  mobilityNeeds: string,
+  count: number
 ): RecommendedPlace[] {
   const filtered = places.filter((p) => !excludeNames.includes(p.name));
   const limitedMobility = isLimitedMobility(mobilityNeeds);
@@ -185,8 +177,11 @@ function rankByDNA(
     if (p.crowdLevel === "high") score -= (100 - dna.crowdTolerance) * 0.5;
     if (p.crowdLevel === "low") score += dna.quietPreference * 0.3;
     if (filters.quiet && p.crowdLevel !== "low") score -= 20;
-    if (limitedMobility && p.crowdLevel === "high") score -= 15; // large busy sites tend to involve more walking
+    if (limitedMobility && p.crowdLevel === "high") score -= 15;
     return { p, score };
   });
-  return scored.sort((a, b) => b.score - a.score).map((s) => s.p);
+  return scored
+    .sort((a, b) => b.score - a.score)
+    .slice(0, count)
+    .map((s) => s.p);
 }
