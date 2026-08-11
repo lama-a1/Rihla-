@@ -1,44 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Heart, Camera, Leaf, Users, ThermometerSun, BatteryLow, Footprints, Wallet, Minus } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { useLang } from "@/lib/i18n";
 import { FeedbackType, RecommendedPlace } from "@/lib/types";
-import { feedbackToDNASignals } from "@/lib/dna";
+import { feedbackToDNASignals, mergeDNASignals, ratingToDNASignals } from "@/lib/dna";
 import { Card } from "./ui/Card";
-import { FeedbackBar } from "./FeedbackBar";
+import { FeedbackBar, FeedbackOption } from "./FeedbackBar";
 import { VoiceFeedbackButton } from "./VoiceFeedbackButton";
-
-const LABELS_EN: Record<FeedbackType, string> = {
-  loved: "Loved it",
-  okay: "It was okay",
-  too_crowded: "Too crowded",
-  too_hot: "Too hot",
-  too_tired: "I'm tired",
-  too_much_walking: "Too much walking",
-  too_expensive: "Too expensive",
-};
-
-const LABELS_AR: Record<FeedbackType, string> = {
-  loved: "أحببته",
-  okay: "كان مقبولًا",
-  too_crowded: "مزدحم جدًا",
-  too_hot: "حار جدًا",
-  too_tired: "أشعر بالتعب",
-  too_much_walking: "مشي كثير",
-  too_expensive: "مكلف جدًا",
-};
-
-// Phase 7: feedback about the selected (or most recent) place nudges the
-// same Travel DNA the chat updates, then re-fetches recommendations for the
-// last request so the *next* suggestions reflect what was just learned —
-// the "feedback -> DNA update -> better recommendation" loop from the brief.
-//
-// Each place can only be rated ONCE per session (tracked via ratedPlaceIds
-// in lib/store.tsx). Without this, repeatedly tapping e.g. "Too crowded" on
-// the same place would let a single place drag a trait to 0 or 100 — the
-// brief calls for gradual evolution across DIFFERENT interactions, not
-// unlimited weight from one.
+import { StarRating } from "./StarRating";
 
 export function FeedbackSection() {
   const {
@@ -52,26 +23,69 @@ export function FeedbackSection() {
     appendRecommendations,
     ratedPlaceIds,
     markPlaceRated,
+    ratePlace,
+    mobilityNeeds,
   } = useApp();
   const { lang, t } = useLang();
+  const [rating, setRating] = useState<number | null>(null);
   const [lastFeedback, setLastFeedback] = useState<FeedbackType | null>(null);
   const [busy, setBusy] = useState(false);
-
-  const LABELS = lang === "ar" ? LABELS_AR : LABELS_EN;
 
   const targetPlace: RecommendedPlace | undefined =
     recommendations.find((p) => p.id === selectedPlaceId) ?? recommendations[0];
 
   const alreadyRated = targetPlace ? ratedPlaceIds.includes(targetPlace.id) : false;
 
-  const handleFeedback = async (type: FeedbackType, transcript?: string) => {
-    if (!targetPlace || alreadyRated) return;
-    setLastFeedback(type);
+  const REASON_LABELS: Record<FeedbackType, string> = {
+    loved: t("loved"),
+    okay: t("okay"),
+    too_crowded: t("tooCrowded"),
+    too_hot: t("tooHot"),
+    too_tired: t("tooTired"),
+    too_much_walking: t("tooMuchWalking"),
+    too_expensive: t("tooExpensive"),
+    great_for_photography: t("greatForPhotography"),
+    quiet_and_relaxing: t("quietAndRelaxing"),
+  };
+
+  const positiveOptions: FeedbackOption[] = [
+    { type: "loved", label: REASON_LABELS.loved, Icon: Heart },
+    { type: "great_for_photography", label: REASON_LABELS.great_for_photography, Icon: Camera },
+    { type: "quiet_and_relaxing", label: REASON_LABELS.quiet_and_relaxing, Icon: Leaf },
+  ];
+  const negativeOptions: FeedbackOption[] = [
+    { type: "too_crowded", label: REASON_LABELS.too_crowded, Icon: Users },
+    { type: "too_hot", label: REASON_LABELS.too_hot, Icon: ThermometerSun },
+    { type: "too_much_walking", label: REASON_LABELS.too_much_walking, Icon: Footprints },
+    { type: "too_expensive", label: REASON_LABELS.too_expensive, Icon: Wallet },
+    { type: "too_tired", label: REASON_LABELS.too_tired, Icon: BatteryLow },
+  ];
+  const neutralOptions: FeedbackOption[] = [{ type: "okay", label: REASON_LABELS.okay, Icon: Minus }];
+
+  const visibleOptions: FeedbackOption[] =
+    rating === null
+      ? []
+      : rating === 3
+      ? [...neutralOptions, ...positiveOptions, ...negativeOptions]
+      : rating >= 3.5
+      ? positiveOptions
+      : negativeOptions;
+
+  const contextualHeader =
+    rating === null ? "" : rating === 3 ? t("tellUsMore") : rating >= 3.5 ? t("whatDidYouLikeMost") : t("whatDidntWorkForYou");
+
+  const submitFeedback = async (type: FeedbackType | undefined, transcript?: string) => {
+    if (!targetPlace || alreadyRated || rating === null) return;
+    setLastFeedback(type ?? null);
     setBusy(true);
 
-    const signals = feedbackToDNASignals(type, targetPlace);
-    const changeLog = nudgeDNA(signals, `Feedback on ${targetPlace.name}: ${type}`);
+    const ratingSignals = ratingToDNASignals(rating, targetPlace);
+    const reasonSignals = type ? feedbackToDNASignals(type, targetPlace) : {};
+    const signals = mergeDNASignals(ratingSignals, reasonSignals);
+
+    const changeLog = nudgeDNA(signals, `Rated ${targetPlace.name}: ${rating}/5${type ? ` (${type})` : ""}`);
     markPlaceRated(targetPlace.id);
+    ratePlace(targetPlace.id, { rating, feedbackType: type, timestamp: Date.now() });
 
     const traitSummary = changeLog
       .map((c) => `${t(c.trait as any)} ${c.delta > 0 ? "+" : ""}${c.delta}`)
@@ -83,17 +97,15 @@ export function FeedbackSection() {
           ? `تطور حمضك النووي للسفر: ${traitSummary}`
           : `Your Travel DNA evolved: ${traitSummary}`
         : lang === "ar"
-        ? "تم تسجيل الملاحظة."
-        : "Feedback logged.";
+        ? "تم تسجيل التقييم."
+        : "Rating logged.";
 
+    const reasonText = type ? REASON_LABELS[type] : null;
     addMessage({
       role: "assistant",
-      text: `${LABELS[type]}${transcript ? ` ("${transcript}")` : ""} — ${evolvedText}`,
+      text: `${rating}/5${reasonText ? ` — ${reasonText}` : ""}${transcript ? ` ("${transcript}")` : ""} — ${evolvedText}`,
     });
 
-    // Fetch new recommendations reflecting the just-updated DNA and ADD them
-    // to the panel — the place just rated stays visible (now shown as
-    // already-rated) instead of disappearing.
     if (lastIntent) {
       try {
         const res = await fetch("/api/places", {
@@ -106,6 +118,7 @@ export function FeedbackSection() {
             dna: { ...dna, ...applyDeltas(dna, changeLog) },
             excludeNames: recommendations.map((p) => p.name),
             lang,
+            mobilityNeeds,
           }),
         });
         const places = await res.json();
@@ -119,11 +132,12 @@ export function FeedbackSection() {
       }
     }
     setBusy(false);
+    setRating(null);
   };
 
   return (
     <Card className="p-5">
-      <h2 className="font-display text-lg text-ink mb-1">{lang === "ar" ? "كيف كانت تجربتك؟" : "How was your experience?"}</h2>
+      <h2 className="font-display text-lg text-ink mb-1">{t("howWasYourExperience")}</h2>
       <p className="text-xs text-ink-faint mb-4">
         {targetPlace
           ? lang === "ar"
@@ -135,31 +149,43 @@ export function FeedbackSection() {
       </p>
 
       {alreadyRated ? (
-        <p className="text-sm text-oasis-bright text-center py-4">
-          {lang === "ar" ? "قيّمت هذا المكان قبل كذا — جرّب طلب مكان آخر." : "You already rated this place — ask for another one."}
-        </p>
+        <p className="text-sm text-oasis-bright text-center py-4">{t("alreadyRatedThisPlace")}</p>
       ) : (
         <>
-          <FeedbackBar onSelect={handleFeedback} disabled={busy || !targetPlace} />
-          <div className="mt-4 flex justify-center">
-            <VoiceFeedbackButton onDetected={handleFeedback} disabled={busy || !targetPlace} />
+          <div className="flex flex-col items-center gap-2 mb-2">
+            <p className="text-sm text-ink-muted">{t("rateYourExperience")}</p>
+            <StarRating value={rating} onChange={setRating} disabled={busy || !targetPlace} />
           </div>
+
+          {rating !== null && (
+            <div className="mt-4 space-y-3">
+              <p className="text-xs text-ink-faint text-center">{contextualHeader}</p>
+              <FeedbackBar options={visibleOptions} onSelect={(type) => submitFeedback(type)} disabled={busy} />
+              <div className="flex flex-col items-center gap-2 pt-1">
+                <VoiceFeedbackButton onDetected={(type, transcript) => submitFeedback(type, transcript)} disabled={busy} />
+                <button
+                  onClick={() => submitFeedback(undefined)}
+                  disabled={busy}
+                  className="text-xs text-ink-faint underline hover:text-ink disabled:opacity-40"
+                >
+                  {t("submitRating")}
+                </button>
+              </div>
+            </div>
+          )}
         </>
       )}
 
       {lastFeedback && (
         <p className="mt-3 text-center text-xs text-oasis-bright">
           {lang === "ar" ? "آخر ملاحظة: " : "Last feedback: "}
-          {LABELS[lastFeedback]}
+          {REASON_LABELS[lastFeedback]}
         </p>
       )}
     </Card>
   );
 }
 
-// Small helper: the DNA in context updates asynchronously via setState, so
-// for the immediate re-fetch we apply the same deltas locally to avoid a
-// stale read on the very next call.
 function applyDeltas(dna: Record<string, any>, changeLog: { trait: string; delta: number }[]) {
   const patch: Record<string, number> = {};
   for (const c of changeLog) {
