@@ -28,12 +28,15 @@ export async function POST(req: NextRequest) {
           "suggests places to visit but doesn't handle bookings, and ask what kind of place they'd like). " +
           "\n\nStep 2 (only if it IS a place request): extract (1) their tourism intent, (2) SMALL preference " +
           "signals to nudge their DNA (never large jumps — a single message should only move any trait by " +
-          "roughly 3 to 8 points, and only traits actually implied by the message), and write a replyText " +
-          "that reflects what they specifically asked for (don't reuse a generic template).\n\n" +
+          "roughly 3 to 8 points, and only traits actually implied by the message), (3) if they explicitly " +
+          "asked for a specific number of places (e.g. 'give me 5 places', 'أبي 5 اماكن'), set requestedCount " +
+          "to that number (1-8); otherwise omit it entirely. Write a replyText that reflects what they " +
+          "specifically asked for (don't reuse a generic template).\n\n" +
           "Respond with ONLY valid JSON matching this exact shape: " +
           "{ noSearch: boolean, intentSummary: string (one short phrase, e.g. 'quiet historical place'), " +
           "category: 'history'|'nature'|'food'|'culture'|'shopping'|'photography'|'general', " +
           "filters: { quiet?: boolean, indoor?: boolean, lowWalking?: boolean, cheap?: boolean, hiddenGem?: boolean }, " +
+          "requestedCount: number (optional, 1-8, only if explicitly asked for a specific count), " +
           "dnaSignals: { <any of: history,culture,nature,food,photography,shopping,adventure,quietPreference," +
           "crowdTolerance,walkingTolerance,budgetSensitivity,indoorPreference,hiddenGemsPreference>: number (-8 to 8) }, " +
           `replyText: string (a specific, friendly sentence actually addressing their message, written in ${
@@ -64,17 +67,36 @@ const UNSUPPORTED_WORDS = [
   "احجز فندق", "حجز فندق", "احجز طيران", "تذكرة طيران", "احجز طاولة", "أجر سيارة", "استئجار سيارة",
 ];
 
+const ARABIC_NUMBER_WORDS: Record<string, number> = {
+  واحد: 1, واحدة: 1,
+  اثنين: 2, اثنتين: 2, اثنان: 2,
+  ثلاثة: 3, ثلاث: 3,
+  اربعة: 4, أربعة: 4, اربع: 4, أربع: 4,
+  خمسة: 5, خمس: 5,
+  ستة: 6, ست: 6,
+  سبعة: 7, سبع: 7,
+  ثمانية: 8, ثماني: 8,
+  تسعة: 8, تسع: 8,
+  عشرة: 8, عشر: 8,
+};
+
+/** Detects an explicit place count like "5 places" or "أبي 5 اماكن" / "ثلاث أماكن". */
+function detectRequestedCount(text: string): number | undefined {
+  const digitMatch = text.match(/\b([1-9]|10)\b/);
+  if (digitMatch) return Number(digitMatch[1]);
+  for (const [word, num] of Object.entries(ARABIC_NUMBER_WORDS)) {
+    if (text.includes(word)) return num;
+  }
+  return undefined;
+}
+
 function fallbackIntent(message: string, lang: "en" | "ar"): IntentResult {
   const text = message.toLowerCase().trim();
   const tokens = text.split(/[\s,.!?؟،]+/).filter(Boolean);
 
-  // Substring match for longer/multi-word phrases, but EXACT token match
-  // for short words (avoids false positives like "hi" matching inside
-  // "historical", or "eat" matching inside "heat").
   const has = (...keywords: string[]) =>
     keywords.some((k) => (k.length <= 3 && !k.includes(" ") ? tokens.includes(k) : text.includes(k)));
 
-  // Greetings and small talk — don't pretend to search, just greet back.
   if (has(...GREETING_WORDS) && text.length < 30) {
     return {
       noSearch: true,
@@ -89,8 +111,6 @@ function fallbackIntent(message: string, lang: "en" | "ar"): IntentResult {
     };
   }
 
-  // Requests Rihla genuinely can't do — say so honestly instead of
-  // silently returning unrelated tourist attractions.
   if (has(...UNSUPPORTED_WORDS) || has("hotel", "فندق") || has("flight", "طيران")) {
     return {
       noSearch: true,
@@ -164,6 +184,7 @@ function fallbackIntent(message: string, lang: "en" | "ar"): IntentResult {
     category,
     filters,
     dnaSignals,
+    requestedCount: detectRequestedCount(text),
     replyText: buildFallbackReply(category, lang, matchedSomething),
   };
 }
