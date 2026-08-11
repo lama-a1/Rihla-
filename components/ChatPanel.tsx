@@ -89,7 +89,7 @@ export function ChatPanel() {
   };
 
   return (
-    <Card className="p-5 flex flex-col h-full min-h-[360px]">
+    <Card className="p-5 flex flex-col h-full min-h-[300px]">
       <h2 className="font-display text-lg text-ink mb-1">{lang === "ar" ? "اسأل رحلة" : "Ask Rihla"}</h2>
       <p className="text-xs text-ink-faint mb-4">
         {lang === "ar"
@@ -97,7 +97,7 @@ export function ChatPanel() {
           : 'e.g. "I want a quiet historical place nearby" or "somewhere good for photography"'}
       </p>
 
-      <div className="flex-1 overflow-y-auto scrollbar-thin space-y-3 mb-4 min-h-[160px]">
+      <div className="flex-1 overflow-y-auto scrollbar-thin space-y-3 mb-4 min-h-[130px]">
         {messages.length === 0 && (
           <p className="text-sm text-ink-faint italic">
             {lang === "ar" ? "لا توجد رسائل بعد ، جرّب تكتب طلبك." : "No messages yet , try typing a request."}
